@@ -7,7 +7,7 @@ triangles.addEventListener("load", function() {
     var t1 = svgDoc.getElementById("t1");
     // add behaviour
     t1.addEventListener("mousedown", function() {
-        console.log(t1);
+
         t1.setAttribute('fill', 'red');
     }, false);
 }, false);

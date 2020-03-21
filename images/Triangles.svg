@@ -59,8 +59,9 @@
      transform="translate(-62.778883,-66.657662)">
     <path
        sodipodi:type="star"
-       style="opacity:1;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:#8b8b8b;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       style="opacity:1;fill-opacity:1;fill-rule:nonzero;stroke:#8b8b8b;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
        id="t1"
+       fill="#ffffff"
        sodipodi:sides="3"
        sodipodi:cx="147.29462"
        sodipodi:cy="164.09331"
