@@ -50,8 +50,6 @@ loadJSON("ressources/gov.json", function(response) {
         // add behaviour
         for (let p of paths) {
             p.addEventListener("mousedown", function() {
-                console.log(p.getAttribute('id'));
-                //p.setAttribute('fill', 'red');
                 govTree.activateActivity(p.getAttribute('id'));
                 govTree.redraw();
             }, false);

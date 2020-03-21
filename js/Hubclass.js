@@ -12,14 +12,9 @@ class TriangleHub {
         this.canvasID = canvasID;
         this.inactiveColor = "#b9b9b9";
         this.canActivateColor = "#e7ecef";
-        this.activeColor = "#0f7173";
-        this.preparingColor = "#d8A47f";
+        this.activeColor = "#8ea604";
+        this.preparingColor = "#009af5";
         this.activities = new Map(JSON.parse(jsonresource));
-
-        /*  this.activities.set("a1", { name: "Aktivität 1", status: activityStatus.canActivate, successors: ["a2", "a3"] });
-          this.activities.set("a2", { name: "Aktivität 2", status: activityStatus.inactive, successors: ["a4"] });
-          this.activities.set("a3", { name: "Aktivität 3", status: activityStatus.inactive, successors: [] });
-          console.log(JSON.stringify([...this.activities]));*/
     }
 
     checkActicity(activityID) {
