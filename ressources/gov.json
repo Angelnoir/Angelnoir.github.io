@@ -27,5 +27,42 @@
             "status": 1,
             "successors": []
         }
+    ],
+    [
+        "a12",
+        {
+            "name": "Geschäfte schließen",
+            "status": 1,
+            "successors": []
+        }
+    ],
+    [
+        "a13",
+        {
+            "name": "Krankenhäuser freimachen",
+            "status": 1,
+            "successors": [
+                "a10"
+            ]
+        }
+    ],
+    [
+        "a14",
+        {
+            "name": "Tests einführen",
+            "status": 2,
+            "successors": [
+                "a12",
+                "a13"
+            ]
+        }
+    ],
+    [
+        "a10",
+        {
+            "name": "Informationsveranstaltung",
+            "status": 1,
+            "successors": []
+        }
     ]
 ]

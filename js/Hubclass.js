@@ -78,7 +78,7 @@ class TriangleHub {
         // get the inner DOM of alpha.svg
         var svgDoc = triangles.contentDocument;
         // get the inner element by id
-        var paths = svgDoc.getElementsByTagName('path');
+        var paths = svgDoc.getElementById("triangles").getElementsByTagName('path');
         for (let p of paths) {
             p.setAttribute('fill', this.getColor(p.getAttribute('id')));
         }

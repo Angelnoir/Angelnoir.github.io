@@ -46,12 +46,13 @@ loadJSON("ressources/gov.json", function(response) {
         // get the inner DOM of alpha.svg
         var svgDoc = trianglesG.contentDocument;
         // get the inner element by id
-        var paths = svgDoc.getElementsByTagName('path');
+        var paths = svgDoc.getElementById("triangles").getElementsByTagName('path');
         // add behaviour
         for (let p of paths) {
             p.addEventListener("mousedown", function() {
                 govTree.activateActivity(p.getAttribute('id'));
                 govTree.redraw();
+                stepAndGUI();
             }, false);
             p.addEventListener("mouseover", function() {
                 var tooltip = document.getElementById("TooltipGovernment");
@@ -62,11 +63,11 @@ loadJSON("ressources/gov.json", function(response) {
     //ausblenden des Tooltips wenn die Maus alle Dreiecke verlässt
     trianglesG.addEventListener("mouseout", function() {
         var tooltip = document.getElementById("TooltipGovernment");
-        tooltip.innerHTML = "";
+        //tooltip.innerHTML = "";
     });
 });
 
-var i = 100;
+var i = 0;
 
 function stepAndGUI() {
 
@@ -81,15 +82,13 @@ function stepAndGUI() {
     var capa = allHospital() / (icu_capacity + normalBeds);
     setHospitalCapacity(1 - capa);
     changePoints(allInfected(), immune, dead);
+
 }
 
 
 $(function() {
     //this should be executed as soon as the document is ready
     init();
-    for (var j = 0; j < 100; j++) {
-        simulateStep(j);
-    }
     document.getElementById('Advance').addEventListener("mousedown", function() {
         stepAndGUI();
     });
