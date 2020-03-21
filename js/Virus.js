@@ -43,12 +43,12 @@ function spawnPoints() {
 
     for (var i = 0; i < population / pplPerPoint; i++) {
         var circle = document.createElementNS(svgns, 'circle');
-        var x = getRandomInt(52, 550);
-        var y = getRandomInt(0, 630)
+        var x = getRandomInt(75, 505);
+        var y = getRandomInt(20, 630);
 
         circle.setAttributeNS(null, 'cx', x);
         circle.setAttributeNS(null, 'cy', y);
-        circle.setAttributeNS(null, 'r', 3);
+        circle.setAttributeNS(null, 'r', 3.5);
 
         circle.setAttributeNS(null, 'fill', '#8ea604');
         circle.setAttributeNS(null, 'class', 'sus');
@@ -57,30 +57,36 @@ function spawnPoints() {
     }
 }
 
+//something is still fishy here, even when there are no longer infected, the red points will stay
 function changePoints(ill, im, d) {
-    ill = Math.ceil(ill / pplPerPoint);
-    im = Math.ceil(im / pplPerPoint);
-    d = Math.ceil(d / pplPerPoint);
-    print('ill ' + ill + ", im: " + im + "d: " + d);
+    im = Math.round(im / pplPerPoint);
+    d = Math.round(d / pplPerPoint);
+    var newDead = d - lastDead;
+    var newImm = im - lastImm;
+
+    ill = Math.round(ill / pplPerPoint);
 
 
-    var newIll = ill - lastIll;
-    //only sus can get ill
-    if (newIll > 0) {
-        ills = pointGroup.getElementsByClassName('sus');
-        conv = 0;
-        for (let i of ills) {
-            i.setAttribute('class', 'ill');
-            i.setAttribute('fill', '#a70b10');
-            conv++;
-            if (conv == newIll) {
-                break;
+    if (ill > 0) {
+        var newIll = ill - lastIll + newDead + newImm;
+        //only sus can get ill
+        if (newIll > 0) {
+            sus = pointGroup.getElementsByClassName('sus');
+            conv = 0;
+            for (let i of sus) {
+                i.setAttribute('class', 'ill');
+                i.setAttribute('fill', '#a70b10');
+                conv++;
+                if (conv == newIll) {
+                    break;
+                }
             }
+        } else if (newIll < 0) {
+            newDead++;
         }
     }
     lastIll = ill;
 
-    var newDead = d - lastDead;
     //only ill can die
     if (newDead > 0) {
         ills = pointGroup.getElementsByClassName('ill');
@@ -96,7 +102,6 @@ function changePoints(ill, im, d) {
     }
     lastDead = d;
 
-    var newImm = im - lastImm;
     //only ill can get immune
     if (newImm > 0) {
         ills = pointGroup.getElementsByClassName('ill');
@@ -112,9 +117,7 @@ function changePoints(ill, im, d) {
     }
     lastImm = im;
 
-
-
-
+    print('ill ' + newIll + ", im: " + newImm + "d: " + newDead);
 }
 
 var initialHeight
