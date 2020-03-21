@@ -10,7 +10,7 @@
 </rdf:RDF>
 </metadata>
 <g transform="translate(-62.779 -66.658)" stroke="#8b8b8b" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
-<path id="a1" d="m147.29 67.658 83.516 144.65h-167.03z" fill="#e2e2e2" onclick=""/>
+<path id="a1" d="m147.29 67.658 83.516 144.65h-167.03z" fill="#e2e2e2"/>
 <path id="a2" d="m230.31 212.32 83.516 144.65h-167.03z" fill="#e2e2e2"/>
 <path id="a3" transform="scale(1,-1)" d="m230.31-212.31 83.516 144.65-167.03-4e-6z" fill="#e2e2e2"/>
 <path id="a4" transform="scale(1,-1)" d="m147.29-356.97 83.516 144.65h-167.03z" fill="#e2e2e2"/>

@@ -1,0 +1,31 @@
+[
+    [
+        "a1",
+        {
+            "name": "Aktivität 1",
+            "status": 2,
+            "successors": [
+                "a2",
+                "a3"
+            ]
+        }
+    ],
+    [
+        "a2",
+        {
+            "name": "Aktivität 2",
+            "status": 1,
+            "successors": [
+                "a4"
+            ]
+        }
+    ],
+    [
+        "a3",
+        {
+            "name": "Aktivität 3",
+            "status": 1,
+            "successors": []
+        }
+    ]
+]
