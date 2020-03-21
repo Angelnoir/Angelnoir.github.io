@@ -1,4 +1,4 @@
-function setPopulation(percHealthy, percImmune, percIll, percDead, initialHeight) {
+function setPopulation(percHealthy, percIll, percDead) {
     var virusPanel = document.getElementById("virusPanel");
     // get the inner DOM of alpha.svg
     var svgDoc = virusPanel.contentDocument;
@@ -6,12 +6,21 @@ function setPopulation(percHealthy, percImmune, percIll, percDead, initialHeight
     var left1 = svgDoc.getElementById('left1');
     var left2 = svgDoc.getElementById('left2');
     var left3 = svgDoc.getElementById('left3');
-    var left4 = svgDoc.getElementById('left4');
+    //var left4 = svgDoc.getElementById('left4');
 
     left1.setAttribute('height', initialHeight * percDead);
     left2.setAttribute('height', initialHeight * (percDead + percIll));
     left3.setAttribute('height', initialHeight * (percDead + percIll + percHealthy));
     //left4.setAttribute('height', initialHeight * (percDead+percIll));
+}
+
+function setHospitalCapacity(perc) {
+    var virusPanel = document.getElementById("virusPanel");
+    // get the inner DOM of alpha.svg
+    var svgDoc = virusPanel.contentDocument;
+    // get the inner element by id
+    var hospitalCap = svgDoc.getElementById('right2');
+    hospitalCap.setAttribute('height', initialHeight * perc);
 }
 
 function getRandomInt(min, max) {
@@ -44,11 +53,11 @@ function spawnPoint(container) {
                 circle.setAttributeNS(null, 'fill', '#463F3A');
                 break;
         }
-
         container.appendChild(circle);
     }
 }
 
+var initialHeight
 
 var virusPanel = document.getElementById("virusPanel");
 virusPanel.addEventListener("load", function() {
@@ -57,15 +66,6 @@ virusPanel.addEventListener("load", function() {
     // get the inner element by id
     var hospitalCap = svgDoc.getElementById('right2');
     // add behaviour
-    var initialHeight = hospitalCap.getAttribute('height');
-    var country = svgDoc.getElementById('country');
-    var perc = 1;
-    hospitalCap.addEventListener("mousedown", function() {
-        perc = perc - 0.1;
-        hospitalCap.setAttribute('height', initialHeight * perc);
-        setPopulation(0.3, 0.1, 0.3, 0.3, initialHeight);
-        spawnPoint(svgDoc.getElementById("group"));
-        //country.setAttribute('fill', '#009af5');
-    }, false);
+    initialHeight = hospitalCap.getAttribute('height');
 
 }, false);

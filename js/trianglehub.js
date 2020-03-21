@@ -65,3 +65,35 @@ loadJSON("ressources/gov.json", function(response) {
         tooltip.innerHTML = "";
     });
 });
+
+var i = 100;
+
+function stepAndGUI() {
+
+    simulateStep(i);
+    i++;
+
+    var percdead = dead / population;
+    var percIll = allInfected() / population;
+    var percHealthy = susceptible / population;
+    var percImmune = immune / population;
+    print("Dead: " + percdead + "\tInfected: " + percIll + "\tSusceptible: " + percHealthy + "\tImmune: " + percImmune);
+    setPopulation(percHealthy, percIll, percdead);
+
+    var capa = allHospital() / (icu_capacity + normalBeds);
+    print("Hospital Capacity: " + capa);
+    setHospitalCapacity(1 - capa);
+
+}
+
+
+$(function() {
+    //this should be executed as soon as the document is ready
+    init();
+    for (var j = 0; j < 100; j++) {
+        simulateStep(j);
+    }
+    document.getElementById('Advance').addEventListener("mousedown", function() {
+        stepAndGUI();
+    });
+});
