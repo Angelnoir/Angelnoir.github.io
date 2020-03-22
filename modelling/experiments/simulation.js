@@ -113,7 +113,6 @@ function calculateActivityEffects() {
       }
       if (activity[1].hasOwnProperty("hospitalBedCapacityEffect")) {
         normalBeds += Math.round(activity[1].hospitalBedCapacityEffect * baseEffectiveness);
-        print(normalBeds)
       }
     }
   }
@@ -136,7 +135,6 @@ function advanceHospitals() {
   //calculate usable hospital and icu beds
   icu_capacity = Math.round(icu_capacity * icuAvailability);
   normalBeds = Math.round(normalBeds * normalBedAvailability);
-  print(normalBeds + " " + icu_capacity)
 
   //advance serious cases
   immune += hospitalBedSerious.pop()
