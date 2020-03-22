@@ -92,4 +92,7 @@ $(function() {
     document.getElementById('Advance').addEventListener("mousedown", function() {
         stepAndGUI();
     });
+    document.getElementById('Auto').addEventListener("mousedown", function() {
+        simulate();
+    });
 });
