@@ -1,0 +1,25 @@
+<defs>
+    <linearGradient x1="0.5" y1="0" x2="0.5" y2="0.99" id="preparation-default">
+        <stop stop-color="#FFC809" offset="0" id="stop1" />
+        <stop id="stop2" offset="1" stop-color="#FFCF06" />
+        <stop stop-color="#6CB31D" offset="1" id="stop3" />
+    </linearGradient>
+    <linearGradient x1="0.5" y1="0" x2="0.5" y2="0.99" id="preparation-animate">
+        <stop id="stop1" stop-color="#FFC809" offset="0%"></stop>
+        <stop id="stop2" stop-color="#FFCF06" offset="73.5%">
+            <animate attributeName="offset" dur="2s" values="1; 0.735;" repeatCount="1" begin="indefinite" id="preparation-animate-stop1"/>
+        </stop>
+        <stop id="stop3" stop-color="#6CB31D" offset="73.5%">
+            <animate attributeName="offset" dur="2s" values="1; 0.735;" repeatCount="1" begin="indefinite" id="preparation-animate-stop2"/>
+        </stop>
+    </linearGradient>
+    <linearGradient x1="0.5" y1="0" x2="0.5" y2="0.76" id="preparation-end">
+        <stop id="stop1" stop-color="#FFC809" offset="0%"></stop>
+        <stop id="stop2" stop-color="#FFCF06" offset="73.5%">
+            <animate attributeName="offset" dur="5s" values="0.995; 0.95; 0.995; 0.95; 0.995;" repeatCount="indefinite" begin="indefinite" />
+        </stop>
+        <stop id="stop3" stop-color="#6CB31D" offset="73.5%">
+            <animate attributeName="offset" dur="5s" values="0.995; 0.95; 0.995; 0.95; 0.995;" repeatCount="indefinite" begin="indefinite" />
+        </stop>
+    </linearGradient>
+</defs>

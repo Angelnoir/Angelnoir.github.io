@@ -59,7 +59,9 @@ $(function() {
     loadJSON("ressources/gov.json", function(response) {
         //select the government tree
         const govTree = new TriangleHub("govTree", response);
+        console.log(govTree.activities);
         init(govTree.activities);
+
         var trianglesG = document.getElementById("govTree");
         trianglesG.addEventListener("load", function() {
             govTree.redraw();
@@ -80,10 +82,11 @@ $(function() {
                 });
             }
         }, false);
+
         //ausblenden des Tooltips wenn die Maus alle Dreiecke verlässt
         trianglesG.addEventListener("mouseout", function() {
             var tooltip = document.getElementById("TooltipGovernment");
-            //tooltip.innerHTML = "";
+            tooltip.innerHTML = "";
         });
     });
 
@@ -91,9 +94,19 @@ $(function() {
         stepAndGUI();
     });
     document.getElementById('Auto').addEventListener("mousedown", function() {
-        init();
+        init(govTree.activities);
         for (let j = 0; j < simulationTimeInDays; j++) {
             stepAndGUI();
         }
     });
 });
+
+
+function animate() {
+    $("#bulb-icon").attr("class", "animate");;
+    setTimeout(function() {
+        $("#bulb-icon").attr("class", "end");;
+    }, 4995);
+    bulbstop1.beginElement();
+    bulbstop2.beginElement();
+}

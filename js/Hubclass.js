@@ -84,4 +84,15 @@ class TriangleHub {
             p.setAttribute('fill', this.getColor(p.getAttribute('id')));
         }
     }
+
+    animateTriangle(id) {
+        createAnimation(0.3, 0.7, 'prep');
+
+        bulbstop1 = svgDoc.getElementById('prep-animate-stop1');
+        bulbstop2 = svgDoc.getElementById('prep-animate-stop2');
+
+        animate();
+
+        p.setAttribute('fill', 'url(#prep)');
+    }
 }
