@@ -95,6 +95,7 @@ class TriangleHub {
     activateActivity(activityID) {
         if (this.checkActicity(activityID)) {
             this.activities.get(activityID).status = activityStatus.activating;
+            this.activateSuccessors(activityID);
         }
     }
 
@@ -120,7 +121,7 @@ class TriangleHub {
                     return this.inactiveColor;
                 case activityStatus.canActivate:
                     return this.canActivateColor;
-                case activityStatus.processed:
+                case activityStatus.active:
                     return this.activeColor;
                 default:
                     return this.inactiveColor;
@@ -130,7 +131,7 @@ class TriangleHub {
         }
     }
 
-    getInfos(aID) {
+    getTitle(aID) {
         if (this.activities.get(aID) != null) {
             return this.activities.get(aID).name;
         } else {
@@ -138,16 +139,24 @@ class TriangleHub {
         }
     }
 
-    processActivities() {
-        for (var activity of this.activities) {
-
-            if (activity[1].status == activityStatus.active) {
-                //it was active through the sim, now we have to do the last gui things
-                activity[1].status = activityStatus.processed;
-                this.activateSuccessors(activity[0]);
-            }
+    getInfos(aID) {
+        if (this.activities.get(aID) != null) {
+            return this.activities.get(aID).desc + "<br/>" + this.activities.get(aID).descImprove + "<br/>" + this.activities.get(aID).descHarm;
+        } else {
+            return "";
         }
     }
+
+    /*   processActivities() {
+           for (var activity of this.activities) {
+
+               if (activity[1].status == activityStatus.active) {
+                   //it was active through the sim, now we have to do the last gui things
+                   activity[1].status = activityStatus.processed;
+                   this.activateSuccessors(activity[0]);
+               }
+           }
+       }*/
 
     redraw() {
         console.log('Redraw Cycle');
@@ -156,7 +165,7 @@ class TriangleHub {
         var svgDoc = triangles.contentDocument;
         // get the inner element by id
         var paths = svgDoc.getElementById("triangles").getElementsByTagName('path');
-        this.processActivities();
+        //this.processActivities();
         for (let p of paths) {
             p.setAttribute('fill', this.getColor(p.getAttribute('id')));
             this.animateTriangle(p.getAttribute('id'));
@@ -167,7 +176,7 @@ class TriangleHub {
     animateTriangle(aID) {
         var activity = this.activities.get(aID);
         if (activity != null) {
-            if (activity.status == activityStatus.activating || activity.status == activityStatus.active) {
+            if (activity.status == activityStatus.activating) {
                 console.log(activity);
                 var dur = activity.activationDuration;
                 var prog = activity.activationAlreadyProgressed

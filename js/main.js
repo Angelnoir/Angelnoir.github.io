@@ -33,6 +33,18 @@ var govTree, peopleTree
 
 $(function() {
 
+    var virusPanel = document.getElementById("virusPanel");
+    virusPanel.addEventListener("load", function() {
+        //update the graphics
+        var percdead = dead / population;
+        var percIll = allInfected() / population;
+        var percHealthy = susceptible / population;
+        setPopulation(percHealthy, percIll, percdead);
+        var capa = allHospital() / (icu_capacity + normalBeds);
+        setHospitalCapacity(1 - capa);
+        changePoints(allInfected(), immune, dead);
+    });
+
     loadJSON("ressources/people.json", function(response) {
         peopleTree = new TriangleHub("peopleTree", response);
         console.log(response);
@@ -78,8 +90,10 @@ $(function() {
                     stepAndGUI();
                 }, false);
                 p.addEventListener("mouseover", function() {
-                    var tooltip = document.getElementById("TooltipGovernment");
-                    tooltip.innerHTML = govTree.getInfos(p.getAttribute('id'));
+                    var tooltip = document.getElementById("TooltipGovernmentTitle");
+                    tooltip.innerHTML = govTree.getTitle(p.getAttribute('id'));
+                    var tooltip2 = document.getElementById("TooltipGovernment");
+                    tooltip2.innerHTML = govTree.getInfos(p.getAttribute('id'));
                 });
             }
         }, false);
@@ -88,6 +102,8 @@ $(function() {
         trianglesG.addEventListener("mouseout", function() {
             var tooltip = document.getElementById("TooltipGovernment");
             tooltip.innerHTML = "";
+            var tooltip2 = document.getElementById("TooltipGovernmentTitle");
+            tooltip2.innerHTML = "";
         });
 
         document.getElementById('Advance').addEventListener("mousedown", function() {
