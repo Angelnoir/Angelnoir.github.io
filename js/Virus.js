@@ -31,7 +31,7 @@ var lastIll = 0,
     lastImm = 0,
     lastDead = 0
 
-var pplPerPoint = 100000
+var pplPerPoint
 
 function spawnPoints() {
     var svgns = "http://www.w3.org/2000/svg";
@@ -41,20 +41,37 @@ function spawnPoints() {
     container = svgDoc.getElementById('group');
     console.log(container);
 
-    for (var i = 0; i < population / pplPerPoint; i++) {
-        var circle = document.createElementNS(svgns, 'circle');
-        var x = getRandomInt(75, 505);
-        var y = getRandomInt(20, 630);
+    /*  for (var i = 0; i < population / pplPerPoint; i++) {
+          var circle = document.createElementNS(svgns, 'circle');
+          var x = getRandomInt(75, 505);
+          var y = getRandomInt(25, 625);
 
-        circle.setAttributeNS(null, 'cx', x);
-        circle.setAttributeNS(null, 'cy', y);
-        circle.setAttributeNS(null, 'r', 3.5);
+          circle.setAttributeNS(null, 'cx', x);
+          circle.setAttributeNS(null, 'cy', y);
+          circle.setAttributeNS(null, 'r', 3.5);
 
-        circle.setAttributeNS(null, 'fill', '#8ea604');
-        circle.setAttributeNS(null, 'class', 'sus');
+          circle.setAttributeNS(null, 'fill', '#8ea604');
+          circle.setAttributeNS(null, 'class', 'sus');
 
-        container.appendChild(circle);
+          container.appendChild(circle);
+      }*/
+    var count = 0
+    for (var i = 90; i < 540; i += 20) {
+        for (var j = 20; j < 635; j += 20) {
+            var circle = document.createElementNS(svgns, 'circle');
+
+            circle.setAttributeNS(null, 'cx', i);
+            circle.setAttributeNS(null, 'cy', j);
+            circle.setAttributeNS(null, 'r', 5);
+
+            circle.setAttributeNS(null, 'fill', '#8ea604');
+            circle.setAttributeNS(null, 'class', 'sus');
+
+            container.appendChild(circle);
+            count++;
+        }
     }
+    pplPerPoint = population / count;
 }
 
 //something is still fishy here, even when there are no longer infected, the red points will stay
