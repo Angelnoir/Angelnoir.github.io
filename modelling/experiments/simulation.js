@@ -23,7 +23,7 @@ const maxImportedCasesPerDay = 1000;
 const maxImportedCases = 1500000;
 var currentlyImportedCases = 0;
 const tippingPointForImports = 225;
-const importedCasesPerDayChangeFactorAfterTippingPoint = 0.8;
+const importedCasesPerDayChangeFactorAfterTippingPoint = 0.7;
 
 //number of infections (initial) per infected person
 var r_0 = 2.3;
@@ -186,6 +186,7 @@ function simulateStep() {
   //import cases
   if (maxImportedCases > currentlyImportedCases) {
     importedCasesPerDay = Math.round(Math.min(maxImportedCasesPerDay, importedCasesPerDay *= importedCasesPerDayChangeFactor));
+
     currentlyImportedCases += importedCasesPerDay;
     if (stepNumber > tippingPointForImports) {
       importedCasesPerDayChangeFactor = importedCasesPerDayChangeFactorAfterTippingPoint;
