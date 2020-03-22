@@ -1,6 +1,6 @@
 [
     [
-        "K0",
+        "P0",
         {
             "name": "Pressemitteilung",
             "desc": "Eine Pressemitteilung wird über dpa ausgespielt, die über das neue Virus informiert.",
@@ -8,17 +8,39 @@
             "descHarm": "",
             "activationDuration": 4,
             "activationAlreadyProgressed": 0,
-            "activationNature": "instant",
+            "activationNature": "linear",
             "cost": 1,
             "alreadyPaid": 0,
             "acceptanceEffect": 0.01,
-            "rEffect": -0.01,
-            "status": 2,
+            "rEffect": -1.0,
+            "status": 4,
+            "successorsCanActivate": false,
             "successors": [
                 "K01",
                 "K00"
             ]
         }
+    ],
+    [
+      "K0",
+      {
+          "name": "Krankenhäuser informieren",
+          "desc": "Die Krankenhäuser werden über ein neuartiges Virus informiert. Weitere Maßnahmen werden angekündigt.",
+          "descImprove": "Akzeptanz: +1%<br/>Verfügbarkeit Intensivbetten: +1%",
+          "descHarm": "",
+          "activationDuration": 1,
+          "activationAlreadyProgressed": 0,
+          "activationNature": "instant",
+          "cost": 1,
+          "alreadyPaid": 0,
+          "acceptanceEffect": 0.01,
+          "icuAvailabilityEffect": 2.0,
+          "status": 2,
+          "successors": [
+              "K01",
+              "K00"
+          ]
+      }
     ],
     [
         "K01",
