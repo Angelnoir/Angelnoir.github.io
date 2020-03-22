@@ -31,7 +31,7 @@
           "cost": 1,
           "alreadyPaid": 0,
           "acceptanceEffect": 0.01,
-          "icuAvailabilityEffect": 2.0,
+          "icuAvailabilityEffect": 0.01,
           "status": 2,
           "successors": [
               "K00", "K01", "K02", "K03"
@@ -43,7 +43,7 @@
       {
           "name": "Betten bauen",
           "desc": "Die Krankenhäuser stellen überall weitere Betten auf.",
-          "descImprove": "Akzeptanz: +1%<br/>Verfügbarkeit Krankenhausbetten: +100000",
+          "descImprove": "Akzeptanz: +1%<br/>Existierende Krankenhausbetten: +100000",
           "descHarm": "",
           "activationDuration": 20,
           "activationAlreadyProgressed": 0,
@@ -51,7 +51,7 @@
           "cost": 4,
           "alreadyPaid": 0,
           "acceptanceEffect": 0.01,
-          "hospitalBedAvailabilityEffect": 100000,
+          "hospitalBedCapacityEffect": 100000,
           "status": 2,
           "successors": [
               "K000"
@@ -63,7 +63,7 @@
       {
           "name": "Betten improvisieren",
           "desc": "Die Krankenhäuser bauen Krankenhausbetten aus improvisiertem Material und stellen diese überall auf, wo noch Platz ist.",
-          "descImprove": "Akzeptanz: +2%<br/>Verfügbarkeit Krankenhausbetten: +50000",
+          "descImprove": "Akzeptanz: +2%<br/>Existierende Krankenhausbetten: +50000",
           "descHarm": "",
           "activationDuration": 20,
           "activationAlreadyProgressed": 0,
@@ -71,7 +71,7 @@
           "cost": 6,
           "alreadyPaid": 0,
           "acceptanceEffect": 0.02,
-          "hospitalBedAvailabilityEffect": 50000,
+          "hospitalBedCapacityEffect": 50000,
           "status": 2,
           "successors": [
 

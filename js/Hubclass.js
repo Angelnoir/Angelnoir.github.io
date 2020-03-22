@@ -159,7 +159,6 @@ class TriangleHub {
        }*/
 
     redraw() {
-        console.log('Redraw Cycle');
         var triangles = document.getElementById(this.canvasID);
         // get the inner DOM of alpha.svg
         var svgDoc = triangles.contentDocument;

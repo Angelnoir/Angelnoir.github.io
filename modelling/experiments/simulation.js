@@ -45,7 +45,7 @@ var normalBeds = 497000;
 var icuAvailability = 0.2;
 var normalBedAvailability = 0.2;
 var initialICUavailability = 0.2;
-var initialNormalBedAvailability = 1.0;
+var initialNormalBedAvailability = 0.2;
 var initialICUcapacity = 28000;
 var initialNormalBedCapacity = 497000;
 
@@ -101,9 +101,10 @@ function calculateActivityEffects() {
       }
       if (activity[1].hasOwnProperty("icuAvailabilityEffect")) {
         icuAvailability += activity[1].icuAvailabilityEffect;
+        icuAvailability = Math.min(1.0, icuAvailability);
       }
-      if (activity[1].hasOwnProperty("hospitalBedAvailabilityEffect")) {
-        normalBeds += activity[1].hospitalBedAvailabilityEffect * baseEffectiveness;
+      if (activity[1].hasOwnProperty("hospitalBedCapacityEffect")) {
+        normalBeds += activity[1].hospitalBedCapacityEffect * baseEffectiveness;
         print(normalBeds)
       }
     }
@@ -125,8 +126,9 @@ function advanceActivations() {
 
 function advanceHospitals() {
   //calculate usable hospital and icu beds
-  icu_capacity = initialICUcapacity * icuAvailability;
-  normalBeds = initialNormalBedCapacity * normalBedAvailability;
+  icu_capacity = Math.round(icu_capacity * icuAvailability);
+  normalBeds = Math.round(normalBeds * normalBedAvailability);
+  print(normalBeds + " " + icu_capacity)
 
   //advance serious cases
   immune += hospitalBedSerious.pop()
@@ -167,7 +169,7 @@ function advanveInfectious() {
   requiringNormalHospitalBed = Math.round(advancingInfectious * hospitalizationRate * seriousCasesRate);
 
   //fill icu first
-  fittingInICU = Math.min((icu_capacity - allICU()), requiringIntensiveCare);
+  fittingInICU = Math.max(0, Math.min((icu_capacity - allICU()), requiringIntensiveCare));
   notFittingInICU = requiringIntensiveCare - fittingInICU;
   icuBedWillRecover[0] = Math.round(fittingInICU * icuRecoveryRate);
   icuBedWillDie[0] = Math.round(fittingInICU * icuDeathRate);
