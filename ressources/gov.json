@@ -1,27 +1,27 @@
 [
     [
-        "a1",
+        "K0",
         {
             "name": "Pressemitteilung",
             "desc": "Eine Pressemitteilung wird über dpa ausgespielt, die über das neue Virus informiert.",
-            "descImprove":"Akzeptanz: +1%<br/>Senkt Ausbreitung leicht",
-            "descHarm":"",
-            "activationDuration":1,
-            "activationAlreadyProgressed":0,
-            "activationNature":"instant",
-            "cost":1,
-            "alreadyPaid":0,
-            "acceptanceEffect":0.01,
-            "rEffect":-0.01,
+            "descImprove": "Akzeptanz: +1%<br/>Senkt Ausbreitung leicht",
+            "descHarm": "",
+            "activationDuration": 4,
+            "activationAlreadyProgressed": 0,
+            "activationNature": "instant",
+            "cost": 1,
+            "alreadyPaid": 0,
+            "acceptanceEffect": 0.01,
+            "rEffect": -0.01,
             "status": 2,
             "successors": [
-                "a2",
-                "a3"
+                "K01",
+                "K00"
             ]
         }
     ],
     [
-        "a2",
+        "K01",
         {
             "name": "Aktivität 2",
             "status": 1,
@@ -31,7 +31,7 @@
         }
     ],
     [
-        "a3",
+        "K00",
         {
             "name": "Aktivität 3",
             "status": 1,
