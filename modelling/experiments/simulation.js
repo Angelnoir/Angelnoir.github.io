@@ -19,11 +19,11 @@ var icuBedWillRecover = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 //imported cases
 var importedCasesPerDay = 5;
 var importedCasesPerDayChangeFactor = 1.2;
-const maxImportedCasesPerDay = 1000;
+const maxImportedCasesPerDay = 2000;
 const maxImportedCases = 750000;
 var currentlyImportedCases = 0;
 const tippingPointForImports = 225;
-const importedCasesPerDayChangeFactorAfterTippingPoint = 0.7;
+const importedCasesPerDayChangeFactorAfterTippingPoint = 0.5;
 
 //number of infections (initial) per infected person
 var r_0 = 2.3;
@@ -190,7 +190,7 @@ function simulateStep() {
 
   //import cases
   if (maxImportedCases > currentlyImportedCases) {
-    importedCasesPerDay = Math.round(Math.min(maxImportedCasesPerDay, importedCasesPerDay *= importedCasesPerDayChangeFactor));
+    importedCasesPerDay = Math.floor(Math.min(maxImportedCasesPerDay, importedCasesPerDay *= importedCasesPerDayChangeFactor));
 
     currentlyImportedCases += importedCasesPerDay;
     if (stepNumber > tippingPointForImports) {
