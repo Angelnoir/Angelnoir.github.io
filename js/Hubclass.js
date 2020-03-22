@@ -1,7 +1,8 @@
 const activityStatus = {
     inactive: 1,
     canActivate: 2,
-    active: 3
+    active: 3,
+    activating: 4
 };
 
 
