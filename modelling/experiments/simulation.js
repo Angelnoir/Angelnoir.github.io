@@ -100,11 +100,19 @@ function calculateActivityEffects() {
         publicAcceptance += activity[1].acceptanceEffect;
       }
       if (activity[1].hasOwnProperty("icuAvailabilityEffect")) {
-        icuAvailability += activity[1].icuAvailabilityEffect;
+        icuAvailability += activity[1].icuAvailabilityEffect * baseEffectiveness;
         icuAvailability = Math.min(1.0, icuAvailability);
       }
+      if (activity[1].hasOwnProperty("normalBedAvailabilityEffect")) {
+        normalBedAvailability += activity[1].normalBedAvailabilityEffect * baseEffectiveness;
+        normalBedAvailability = Math.min(1.0, normalBedAvailability);
+      }
+      if (activity[1].hasOwnProperty("icuCapacityEffect")) {
+        icu_capacity += Math.round(activity[1].icuCapacityEffect * baseEffectiveness);
+
+      }
       if (activity[1].hasOwnProperty("hospitalBedCapacityEffect")) {
-        normalBeds += activity[1].hospitalBedCapacityEffect * baseEffectiveness;
+        normalBeds += Math.round(activity[1].hospitalBedCapacityEffect * baseEffectiveness);
         print(normalBeds)
       }
     }
