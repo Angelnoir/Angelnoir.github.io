@@ -50,8 +50,12 @@ var initialNormalBedCapacity = 497000;
 var diedYesterday = 0;
 var stepNumber = 0;
 
-function init() {
-  susceptible = population - allIncubated() - allInfectiuos() - immune - dead - allRecovering() - allHospital()
+//activities
+var activities;
+
+function init(myActivities) {
+  susceptible = population - allIncubated() - allInfectiuos() - immune - dead - allRecovering() - allHospital();
+  activities = myActivities;
 }
 
 function advanceHospitals() {
