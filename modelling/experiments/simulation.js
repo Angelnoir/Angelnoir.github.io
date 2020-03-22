@@ -23,7 +23,7 @@ const maxImportedCasesPerDay = 2000;
 const maxImportedCases = 750000;
 var currentlyImportedCases = 0;
 const tippingPointForImports = 225;
-const importedCasesPerDayChangeFactorAfterTippingPoint = 0.5;
+const importedCasesPerDayChangeFactorAfterTippingPoint = 0.8;
 
 //number of infections (initial) per infected person
 var r_0 = 2.3;
@@ -49,6 +49,8 @@ var initialNormalBedCapacity = 497000;
 //statistics
 var diedYesterday = 0;
 var stepNumber = 0;
+var publicAcceptance = 0.2;
+var policeForce = 0.01;
 
 //activities
 var activities;
