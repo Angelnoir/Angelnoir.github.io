@@ -25,31 +25,25 @@
 </head>
 
 <body style="background-color: white">
-    <div class="container" style="margin-top: 20px;">
+    <div class="container" style="margin-top: 10px;">
         <div class="row">
-            <div class="two columns">
-                <p>Tage seit Patient 0:</p>
-                <p id="txt_days">5</h5>
+            <div class="offset-by-two three columns">
+                <span style="display: inline-block; width: 9em;">Aktuell Infizierte:</span> <span id="txt_ill" style="display: inline-block; width: 8em; text-align: right; font-weight: bold;">5</span> <br/><span style="display: inline-block; width: 9em;">Bisherige Tote:</span>
+                <span id="txt_dead" style="display: inline-block; width: 8em; text-align: right; font-weight: bold;">5</span> <br/> <span style="display: inline-block; width: 9em;">Bisherige Immune:</span>
+                <span id="txt_imm" style="display: inline-block; width: 8em; text-align: right; font-weight: bold;">5</span>
+            </div>
+            <div class="three columns">
+                <span style="display: inline-block; width: 10em;">Krankenhausbetten:</span>
+                <span id="txt_bed" style="display: inline-block; width: 5em; text-align: right; font-weight: bold;">5</span> <br/> <span style="display: inline-block; width: 10em;">Beatmungsplätze:</span>
+                <span id="txt_icu" style="display: inline-block; width: 5em; text-align: right; font-weight: bold;">5</span>
             </div>
             <div class="two columns">
-                <p>Aktuell Infizierte:</p>
-                <p id="txt_ill">5</p>
+                Tage seit Patient 0:
+                <span id="txt_days" style="display: inline-block; width: 4em; text-align: right; font-weight: bold;">5</span>
             </div>
             <div class="two columns">
-                <p>Bisherige Tote:</p>
-                <p id="txt_dead">5</p>
-            </div>
-            <div class="two columns">
-                <p>Bisherige Immune:</p>
-                <p id="txt_imm">5</p>
-            </div>
-            <div class="two columns">
-                <p>Krankenhausbetten:</p>
-                <p id="txt_bed">5</p>
-            </div>
-            <div class="two columns">
-                <p>Beatmungsplätze:</p>
-                <p id="txt_icu">5</p>
+                <button type="button" id="Advance">Advance</button>
+                <button type="button" id="Auto">Autosimulation</button>
             </div>
         </div>
         <div class="row">
@@ -57,20 +51,18 @@
                 <object id="peopleTree" data="images/minTriangles.svg" type="image/svg+xml" width="100%"></object>
             </div>
             <div class="one-third column" id="virus">
-                <object id="virusPanel" data="images/Deutschland.svg" type="image/svg+xml" width="100%"></object>
+                <object id="virusPanel" data="images/Deutschland.svg " type="image/svg+xml" width="100%"></object>
             </div>
-
             <div class="one-third column" id="government">
-                <object id="govTree" data="images/treeGov.svg" type="image/svg+xml" width="100%"></object>
+                <object id="govTree" data="images/treeGov.svg " type="image/svg+xml" width="100%"></object>
             </div>
         </div>
         <div class="row">
             <div class="one-third column">
-                <h4></h4>
+                <canvas id="myChart" width="100%" height="40%"></canvas>
             </div>
             <div class="one-third column">
-                <button type="button" id="Advance">Advance</button>
-                <button type="button" id="Auto">Autosimulation</button>
+
             </div>
             <div class="one-third column">
                 <h4 id="TooltipGovernmentTitle">
