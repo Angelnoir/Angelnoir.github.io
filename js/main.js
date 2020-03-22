@@ -24,14 +24,17 @@ function stepAndGUI() {
     var capa = allHospital() / (icu_capacity + normalBeds);
     setHospitalCapacity(1 - capa);
     changePoints(allInfected(), immune, dead);
+    peopleTree.redraw();
+    govTree.redraw();
 
 }
 
+var govTree, peopleTree
 
 $(function() {
 
     loadJSON("ressources/people.json", function(response) {
-        const peopleTree = new TriangleHub("peopleTree", response);
+        peopleTree = new TriangleHub("peopleTree", response);
         console.log(response);
         var triangles = document.getElementById("peopleTree");
         triangles.addEventListener("load", function() {
@@ -58,8 +61,7 @@ $(function() {
     //We have to do absoluteley everything only when the JSON has been loaded!!!
     loadJSON("ressources/gov.json", function(response) {
         //select the government tree
-        const govTree = new TriangleHub("govTree", response);
-        console.log(govTree.activities);
+        govTree = new TriangleHub("govTree", response);
         init(govTree.activities);
 
         var trianglesG = document.getElementById("govTree");
@@ -73,7 +75,6 @@ $(function() {
             for (let p of paths) {
                 p.addEventListener("mousedown", function() {
                     govTree.activateActivity(p.getAttribute('id'));
-                    govTree.redraw();
                     stepAndGUI();
                 }, false);
                 p.addEventListener("mouseover", function() {
@@ -101,13 +102,3 @@ $(function() {
 
     });
 });
-
-
-function animate() {
-    $("#bulb-icon").attr("class", "animate");;
-    setTimeout(function() {
-        $("#bulb-icon").attr("class", "end");;
-    }, 4995);
-    bulbstop1.beginElement();
-    bulbstop2.beginElement();
-}
