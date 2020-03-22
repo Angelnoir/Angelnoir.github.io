@@ -55,7 +55,7 @@ function createAnimation(startPerc, endPerc, id) {
 
     var stop3 = document.createElementNS(svgns, 'stop');
     stop3.setAttributeNS(null, 'id', "stop3");
-    stop3.setAttributeNS(null, 'stop-color', "#b9b9b9");
+    stop3.setAttributeNS(null, 'stop-color', "#e7ecef");
     stop3.setAttributeNS(null, 'offset', endPerc);
 
 
@@ -146,17 +146,6 @@ class TriangleHub {
             return "";
         }
     }
-
-    /*   processActivities() {
-           for (var activity of this.activities) {
-
-               if (activity[1].status == activityStatus.active) {
-                   //it was active through the sim, now we have to do the last gui things
-                   activity[1].status = activityStatus.processed;
-                   this.activateSuccessors(activity[0]);
-               }
-           }
-       }*/
 
     redraw() {
         var triangles = document.getElementById(this.canvasID);

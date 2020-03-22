@@ -15,9 +15,7 @@ function stepAndGUI() {
 
     simulateStep();
     stepNumber++;
-
     updateGUI();
-
 }
 
 function updateGUI() {
@@ -49,6 +47,9 @@ function updateGUI() {
 
     var txt_icu = document.getElementById("txt_icu");
     txt_icu.innerHTML = icu_capacity;
+
+    var ctx = document.getElementById('myChart');
+
 }
 
 var govTree, peopleTree
