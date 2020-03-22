@@ -27,6 +27,7 @@ const importedCasesPerDayChangeFactorAfterTippingPoint = 0.8;
 
 //number of infections (initial) per infected person
 var r_0 = 2.3;
+var initial_r_0 = 2.3;
 
 //model assumptions
 var hospitalizationRate = 0.05
@@ -53,12 +54,42 @@ var publicAcceptance = 0.2;
 var policeForce = 0.01;
 
 //activities
-var activities;
+var activities
 
 function init(myActivities) {
   susceptible = population - allIncubated() - allInfectiuos() - immune - dead - allRecovering() - allHospital();
   activities = myActivities;
   stepNumber = 0;
+}
+
+function calculateActivityEffects() {
+
+  //reset simulation parameters
+  r_0 = initial_r_0;
+
+  for (var activity of activities) {
+    //is active?
+
+    if (activity[1].hasOwnProperty("rEffect")) {
+      r_0 += activity[1].rEffect;
+    }
+    if (activity[1].hasOwnProperty("acceptanceEffect")) {
+      publicAcceptance += activity[1].acceptanceEffect;
+    }
+  }
+}
+
+function advanceActivations() {
+  for (var activity of activities) {
+    //advance activations
+    if (activity[1].status == 4) {
+      activity[1].activationAlreadyProgressed += 1;
+      if (activity[1].activationAlreadyProgressed >= activity[1].activationDuration) {
+        activity[1].status = 3;
+        print("Fully Activated: " + activity[1].name)
+      }
+    }
+  }
 }
 
 function advanceHospitals() {
@@ -166,12 +197,15 @@ function advanveInfectious() {
   dead += dyingToday;
   recovering[0] += (notFittingInHospitalBed - dyingToday);
 
-  //print(stepNumber + " " + notFittingInICU + " " + notFittingInHospitalBed)
 }
 
 
 function simulateStep() {
   oldDead = dead
+
+  //calculate effects by measures taken
+  calculateActivityEffects();
+
   //advance one day in hospitals
   advanceHospitals();
 
@@ -181,7 +215,6 @@ function simulateStep() {
 
   //calculate newly infected
   infectedToday = Math.round(susceptible / population * r_0 / 3.0 * allInfectiuos());
-  //print(infectedToday)
 
   //advance one day in infectious
   advanveInfectious();
@@ -205,6 +238,8 @@ function simulateStep() {
   susceptible = population - allIncubated() - allInfectiuos() - immune - dead - allRecovering() - allHospital()
 
   diedYesterday = dead - oldDead;
+
+  advanceActivations();
 
   printStats()
 }

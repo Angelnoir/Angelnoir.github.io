@@ -6,7 +6,14 @@
             "desc": "Eine Pressemitteilung wird über dpa ausgespielt, die über das neue Virus informiert.",
             "descImprove":"Akzeptanz: +1%<br/>Senkt Ausbreitung leicht",
             "descHarm":"",
-            "status": 2,
+            "activationDuration":1,
+            "activationAlreadyProgressed":0,
+            "activationNature":"instant",
+            "cost":1,
+            "alreadyPaid":0,
+            "acceptanceEffect":0.01,
+            "rEffect":-0.01,
+            "status": 4,
             "successors": [
                 "a2",
                 "a3"
