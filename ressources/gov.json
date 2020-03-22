@@ -79,6 +79,84 @@
       }
     ],
     [
+      "K01",
+      {
+          "name": "Patienten entlassen I",
+          "desc": "Die Krankenhäuser entlassen Patienten etwas zügiger.",
+          "descImprove": "Verfügbarkeit von Krankenhausbetten: +20%",
+          "descHarm": "",
+          "activationDuration": 4,
+          "activationAlreadyProgressed": 0,
+          "activationNature": "linear",
+          "cost": 4,
+          "alreadyPaid": 0,
+          "acceptanceEffect": 0.0,
+          "normalBedAvailabilityEffect": 0.2,
+          "status": 1,
+          "successors": [
+              "K010"
+          ]
+      }
+    ],
+    [
+      "K010",
+      {
+          "name": "Patienten entlassen II",
+          "desc": "Die Krankenhäuser entlassen Patienten sehr schnell.",
+          "descImprove": "Verfügbarkeit von Krankenhausbetten: +20%",
+          "descHarm": "",
+          "activationDuration": 7,
+          "activationAlreadyProgressed": 0,
+          "activationNature": "linear",
+          "cost": 8,
+          "alreadyPaid": 0,
+          "acceptanceEffect": 0.0,
+          "normalBedAvailabilityEffect": 0.2,
+          "status": 1,
+          "successors": [
+          ]
+      }
+    ],
+    [
+      "K02",
+      {
+          "name": "Optionale Operation absagen I",
+          "desc": "Die Krankenhäuser führen keine optionalen Operationen mehr durch, bei denen Patienten Intensivpflichtig werden können.",
+          "descImprove": "Verfügbarkeit von Intensivbetten: +20%",
+          "descHarm": "Akzeptanz: -1%",
+          "activationDuration": 7,
+          "activationAlreadyProgressed": 0,
+          "activationNature": "linear",
+          "cost": 4,
+          "alreadyPaid": 0,
+          "acceptanceEffect": -0.01,
+          "icuAvailability": 0.2,
+          "status": 1,
+          "successors": [
+              "K020"
+          ]
+      }
+    ],
+    [
+      "K020",
+      {
+          "name": "Optionale Operation absagen II",
+          "desc": "Die Krankenhäuser führen keine optionalen Operationen mehr durch.",
+          "descImprove": "Verfügbarkeit von Intensivbetten: +20%",
+          "descHarm": "Akzeptanz: -2%",
+          "activationDuration": 7,
+          "activationAlreadyProgressed": 0,
+          "activationNature": "linear",
+          "cost": 8,
+          "alreadyPaid": 0,
+          "acceptanceEffect": -0.02,
+          "icuAvailability": 0.2,
+          "status": 1,
+          "successors": [
+          ]
+      }
+    ],
+    [
       "K03",
       {
           "name": "Intensivbetten bauen",
