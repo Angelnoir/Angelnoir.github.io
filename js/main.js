@@ -55,7 +55,7 @@ $(function() {
         });
     });
 
-
+    //We have to do absoluteley everything only when the JSON has been loaded!!!
     loadJSON("ressources/gov.json", function(response) {
         //select the government tree
         const govTree = new TriangleHub("govTree", response);
@@ -88,16 +88,17 @@ $(function() {
             var tooltip = document.getElementById("TooltipGovernment");
             tooltip.innerHTML = "";
         });
-    });
 
-    document.getElementById('Advance').addEventListener("mousedown", function() {
-        stepAndGUI();
-    });
-    document.getElementById('Auto').addEventListener("mousedown", function() {
-        init(govTree.activities);
-        for (let j = 0; j < simulationTimeInDays; j++) {
+        document.getElementById('Advance').addEventListener("mousedown", function() {
             stepAndGUI();
-        }
+        });
+        document.getElementById('Auto').addEventListener("mousedown", function() {
+            init(govTree.activities);
+            for (let j = 0; j < simulationTimeInDays; j++) {
+                stepAndGUI();
+            }
+        });
+
     });
 });
 

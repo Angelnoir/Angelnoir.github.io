@@ -86,13 +86,27 @@ class TriangleHub {
     }
 
     animateTriangle(id) {
-        createAnimation(0.3, 0.7, 'prep');
+        var activity = this.activities.get(aID);
+        if (activity != null) {
+            if (activity.status == activityStatus.activating) {
+                var dur = activity.activationDuration;
+                var prog = activity.activationAlreadyProgressed
+                var endperc = prog / dur;
+                var startperc = 0;
+                if (dur != 1) {
+                    startperc = prog / (dur - 1);
+                }
+                createAnimation(startperc, endperc, 'prep-' + id);
 
-        bulbstop1 = svgDoc.getElementById('prep-animate-stop1');
-        bulbstop2 = svgDoc.getElementById('prep-animate-stop2');
+                bulbstop1 = svgDoc.getElementById('prep-' + id + '-animate-stop1');
+                bulbstop2 = svgDoc.getElementById('prep-' + id + '-animate-stop2');
 
-        animate();
+                animate();
 
-        p.setAttribute('fill', 'url(#prep)');
+                p.setAttribute('fill', 'url(#prep-' + id + ')');
+            }
+
+
+        }
     }
 }
