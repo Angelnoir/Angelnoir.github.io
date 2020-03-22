@@ -43,8 +43,9 @@ var deathRateForHospitalRequiringPatientsWithoutBed = 0.5
 var icu_capacity = 28000;
 var normalBeds = 497000;
 var icuAvailability = 0.2;
-var initialICUavailability = 0.2;
 var normalBedAvailability = 0.2;
+var initialICUavailability = 0.2;
+var initialNormalBedAvailability = 1.0;
 var initialICUcapacity = 28000;
 var initialNormalBedCapacity = 497000;
 
@@ -72,6 +73,9 @@ function calculateActivityEffects() {
   //reset simulation parameters
   r_0 = initial_r_0;
   icuAvailability = initialICUavailability;
+  normalBedAvailability = initialNormalBedAvailability;
+  icu_capacity = initialICUcapacity;
+  normalBeds = initialNormalBedCapacity;
   publicAcceptance = initialPublicAcceptance;
   policeForce = initialPoliceForce;
 
@@ -82,10 +86,8 @@ function calculateActivityEffects() {
       baseEffectiveness = 1.0;
     } else if (activity[1].status == 4) {
       if (activity[1].activationNature == "linear") {
-        print("linear")
         baseEffectiveness = activity[1].activationAlreadyProgressed / activity[1].activationDuration;
       } else if (activity[1].activationNature == "instant") {
-        print("instant")
         baseEffectiveness = 0.0;
       }
     }
@@ -100,9 +102,11 @@ function calculateActivityEffects() {
       if (activity[1].hasOwnProperty("icuAvailabilityEffect")) {
         icuAvailability += activity[1].icuAvailabilityEffect;
       }
+      if (activity[1].hasOwnProperty("hospitalBedAvailabilityEffect")) {
+        normalBeds += activity[1].hospitalBedAvailabilityEffect * baseEffectiveness;
+        print(normalBeds)
+      }
     }
-
-    print(baseEffectiveness + " " + r_0)
   }
 }
 
@@ -279,7 +283,7 @@ function simulate() {
 }
 
 function printStats() {
-  print(stepNumber + ": Died: " + diedYesterday + "\tDead: " + dead + "\tInfected: " + allInfected() + "\tSusceptible: " + susceptible + "\tImmune: " + immune + "\tImported: " + currentlyImportedCases)
+  print(stepNumber + ": Died: " + diedYesterday + "\tDead: " + dead + "\tInfected: " + allInfected() + "\tSusceptible: " + susceptible + "\tImmune: " + immune + "\tImported: " + currentlyImportedCases + "\tr: " + r_0 + "\tNormal Beds: " + normalBeds + "\tICU Beds: " + icu_capacity)
 }
 
 function allIncubated() {

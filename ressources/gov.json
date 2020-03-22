@@ -6,18 +6,15 @@
             "desc": "Eine Pressemitteilung wird über dpa ausgespielt, die über das neue Virus informiert.",
             "descImprove": "Akzeptanz: +1%<br/>Senkt Ausbreitung leicht",
             "descHarm": "",
-            "activationDuration": 4,
+            "activationDuration": 1,
             "activationAlreadyProgressed": 0,
-            "activationNature": "linear",
+            "activationNature": "instant",
             "cost": 1,
             "alreadyPaid": 0,
             "acceptanceEffect": 0.01,
-            "rEffect": -1.0,
+            "rEffect": -0.01,
             "status": 4,
-            "successorsCanActivate": false,
             "successors": [
-                "K01",
-                "K00"
             ]
         }
     ],
@@ -37,28 +34,49 @@
           "icuAvailabilityEffect": 2.0,
           "status": 2,
           "successors": [
-              "K01",
-              "K00"
+              "K00", "K01", "K02", "K03"
           ]
       }
     ],
     [
-        "K01",
-        {
-            "name": "Aktivität 2",
-            "status": 1,
-            "successors": [
-                "a4"
-            ]
-        }
+      "K00",
+      {
+          "name": "Betten bauen",
+          "desc": "Die Krankenhäuser stellen überall weitere Betten auf.",
+          "descImprove": "Akzeptanz: +1%<br/>Verfügbarkeit Krankenhausbetten: +100000",
+          "descHarm": "",
+          "activationDuration": 20,
+          "activationAlreadyProgressed": 0,
+          "activationNature": "linear",
+          "cost": 4,
+          "alreadyPaid": 0,
+          "acceptanceEffect": 0.01,
+          "hospitalBedAvailabilityEffect": 100000,
+          "status": 2,
+          "successors": [
+              "K000"
+          ]
+      }
     ],
     [
-        "K00",
-        {
-            "name": "Aktivität 3",
-            "status": 1,
-            "successors": []
-        }
+      "K000",
+      {
+          "name": "Betten improvisieren",
+          "desc": "Die Krankenhäuser bauen Krankenhausbetten aus improvisiertem Material und stellen diese überall auf, wo noch Platz ist.",
+          "descImprove": "Akzeptanz: +2%<br/>Verfügbarkeit Krankenhausbetten: +50000",
+          "descHarm": "",
+          "activationDuration": 20,
+          "activationAlreadyProgressed": 0,
+          "activationNature": "linear",
+          "cost": 6,
+          "alreadyPaid": 0,
+          "acceptanceEffect": 0.02,
+          "hospitalBedAvailabilityEffect": 50000,
+          "status": 2,
+          "successors": [
+
+          ]
+      }
     ],
     [
         "a12",
