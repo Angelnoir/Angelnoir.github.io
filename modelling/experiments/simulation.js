@@ -43,6 +43,7 @@ var deathRateForHospitalRequiringPatientsWithoutBed = 0.5
 var icu_capacity = 28000;
 var normalBeds = 497000;
 var icuAvailability = 0.2;
+var initialICUavailability = 0.2;
 var normalBedAvailability = 0.2;
 var initialICUcapacity = 28000;
 var initialNormalBedCapacity = 497000;
@@ -51,7 +52,11 @@ var initialNormalBedCapacity = 497000;
 var diedYesterday = 0;
 var stepNumber = 0;
 var publicAcceptance = 0.2;
-var policeForce = 0.01;
+const maxPublicAcceptance = 0.75;
+const initialPublicAcceptance = 0.25;
+var policeForce = 0.8;
+const maxPoliceForce = 0.75;
+const initialPoliceForce = 0.75;
 
 //activities
 var activities
@@ -66,16 +71,38 @@ function calculateActivityEffects() {
 
   //reset simulation parameters
   r_0 = initial_r_0;
+  icuAvailability = initialICUavailability;
+  publicAcceptance = initialPublicAcceptance;
+  policeForce = initialPoliceForce;
 
   for (var activity of activities) {
     //is active?
+    baseEffectiveness = 0.0;
+    if (activity[1].status == 3 || activity[1].status == 5) {
+      baseEffectiveness = 1.0;
+    } else if (activity[1].status == 4) {
+      if (activity[1].activationNature == "linear") {
+        print("linear")
+        baseEffectiveness = activity[1].activationAlreadyProgressed / activity[1].activationDuration;
+      } else if (activity[1].activationNature == "instant") {
+        print("instant")
+        baseEffectiveness = 0.0;
+      }
+    }
 
-    if (activity[1].hasOwnProperty("rEffect")) {
-      r_0 += activity[1].rEffect;
+    if (activity[1].status == 3 || activity[1].status == 4 || activity[1].status == 5) {
+      if (activity[1].hasOwnProperty("rEffect")) {
+        r_0 += activity[1].rEffect * baseEffectiveness * (publicAcceptance + policeForce);
+      }
+      if (activity[1].hasOwnProperty("acceptanceEffect")) {
+        publicAcceptance += activity[1].acceptanceEffect;
+      }
+      if (activity[1].hasOwnProperty("icuAvailabilityEffect")) {
+        icuAvailability += activity[1].icuAvailabilityEffect;
+      }
     }
-    if (activity[1].hasOwnProperty("acceptanceEffect")) {
-      publicAcceptance += activity[1].acceptanceEffect;
-    }
+
+    print(baseEffectiveness + " " + r_0)
   }
 }
 
@@ -86,7 +113,7 @@ function advanceActivations() {
       activity[1].activationAlreadyProgressed += 1;
       if (activity[1].activationAlreadyProgressed >= activity[1].activationDuration) {
         activity[1].status = 3;
-        print("Fully Activated: " + activity[1].name)
+        print("Fully Activated: " + activity[1].name);
       }
     }
   }
