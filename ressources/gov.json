@@ -43,7 +43,7 @@
       {
           "name": "Betten bauen",
           "desc": "Die Krankenhäuser stellen überall weitere Betten auf.",
-          "descImprove": "Akzeptanz: +1%<br/>Existierende Krankenhausbetten: +100000",
+          "descImprove": "Akzeptanz: +1%<br/>Existierende Krankenhausbetten: +100.000",
           "descHarm": "",
           "activationDuration": 20,
           "activationAlreadyProgressed": 0,
@@ -52,7 +52,7 @@
           "alreadyPaid": 0,
           "acceptanceEffect": 0.01,
           "hospitalBedCapacityEffect": 100000,
-          "status": 2,
+          "status": 1,
           "successors": [
               "K000"
           ]
@@ -63,7 +63,7 @@
       {
           "name": "Betten improvisieren",
           "desc": "Die Krankenhäuser bauen Krankenhausbetten aus improvisiertem Material und stellen diese überall auf, wo noch Platz ist.",
-          "descImprove": "Akzeptanz: +2%<br/>Existierende Krankenhausbetten: +50000",
+          "descImprove": "Akzeptanz: +2%<br/>Existierende Krankenhausbetten: +50.000",
           "descHarm": "",
           "activationDuration": 20,
           "activationAlreadyProgressed": 0,
@@ -72,9 +72,72 @@
           "alreadyPaid": 0,
           "acceptanceEffect": 0.02,
           "hospitalBedCapacityEffect": 50000,
-          "status": 2,
+          "status": 1,
           "successors": [
 
+          ]
+      }
+    ],
+    [
+      "K03",
+      {
+          "name": "Intensivbetten bauen",
+          "desc": "Die Krankenhäuser rüsten normale Betten zu Intensivbetten um.",
+          "descImprove": "Akzeptanz: +1%<br/><br/>Existierende Intensivbetten: +10.000",
+          "descHarm": "Existierende Krankenhausbetten: -10.000",
+          "activationDuration": 10,
+          "activationAlreadyProgressed": 0,
+          "activationNature": "linear",
+          "cost": 6,
+          "alreadyPaid": 0,
+          "acceptanceEffect": 0.01,
+          "hospitalBedCapacityEffect": -10000,
+          "icuCapacityEffect": 10000,
+          "status": 1,
+          "successors": [
+              "K030"
+          ]
+      }
+    ],
+    [
+      "K030",
+      {
+          "name": "Intensivbetten improvisieren",
+          "desc": "Die Krankenhäuser rüsten eher ungeeignete, normale Betten zu Intensivbetten um.",
+          "descImprove": "Akzeptanz: +2%<br/>Existierende Intensivbetten: +5.000",
+          "descHarm": "Existierende Krankenhausbetten: -5.000",
+          "activationDuration": 20,
+          "activationAlreadyProgressed": 0,
+          "activationNature": "linear",
+          "cost": 12,
+          "alreadyPaid": 0,
+          "acceptanceEffect": 0.02,
+          "hospitalBedCapacityEffect": -5000,
+          "icuCapacityEffect": 5000,
+          "status": 1,
+          "successors": [
+              "K0300"
+          ]
+      }
+    ],
+    [
+      "K0300",
+      {
+          "name": "Krankenhaus bauen",
+          "desc": "Ein neues Krankenhaus wird gebaut.",
+          "descImprove": "Existierende Krankenhausbetten: +10.000<br/>Existierende Intensivbetten: +1.000",
+          "descHarm": "",
+          "activationDuration": 28,
+          "activationAlreadyProgressed": 0,
+          "activationNature": "linear",
+          "cost": 24,
+          "alreadyPaid": 0,
+          "acceptanceEffect": 0.0,
+          "hospitalBedCapacityEffect": 10000,
+          "icuCapacityEffect": 5000,
+          "status": 1,
+          "successors": [
+              "K0300"
           ]
       }
     ],
