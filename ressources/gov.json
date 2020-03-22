@@ -13,7 +13,7 @@
             "alreadyPaid":0,
             "acceptanceEffect":0.01,
             "rEffect":-0.01,
-            "status": 4,
+            "status": 2,
             "successors": [
                 "a2",
                 "a3"
