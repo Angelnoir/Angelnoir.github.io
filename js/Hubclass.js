@@ -27,7 +27,7 @@ function createAnimation(startPerc, endPerc, id) {
 
     var stop = document.createElementNS(svgns, 'stop');
     stop.setAttributeNS(null, 'id', "stop1");
-    stop.setAttributeNS(null, 'stop-color', "#FFC809");
+    stop.setAttributeNS(null, 'stop-color', "#8ea604");
     stop.setAttributeNS(null, 'offset', startPerc);
 
     var animate = document.createElementNS(svgns, 'animate');
@@ -50,12 +50,12 @@ function createAnimation(startPerc, endPerc, id) {
 
     var stop2 = document.createElementNS(svgns, 'stop');
     stop2.setAttributeNS(null, 'id', "stop2");
-    stop2.setAttributeNS(null, 'stop-color', "#FFCF06");
+    stop2.setAttributeNS(null, 'stop-color', "#8ea604");
     stop2.setAttributeNS(null, 'offset', endPerc);
 
     var stop3 = document.createElementNS(svgns, 'stop');
     stop3.setAttributeNS(null, 'id', "stop3");
-    stop3.setAttributeNS(null, 'stop-color', "#6CB31D");
+    stop3.setAttributeNS(null, 'stop-color', "#b9b9b9");
     stop3.setAttributeNS(null, 'offset', endPerc);
 
 
@@ -77,7 +77,6 @@ class TriangleHub {
         this.inactiveColor = "#b9b9b9";
         this.canActivateColor = "#e7ecef";
         this.activeColor = "#8ea604";
-        this.preparingColor = "#009af5";
         this.activities = new Map(JSON.parse(jsonresource));
     }
 
@@ -140,7 +139,7 @@ class TriangleHub {
     }
 
     processActivities() {
-        for (var activity of activities) {
+        for (var activity of this.activities) {
 
             if (activity[1].status == activityStatus.active) {
                 //it was active through the sim, now we have to do the last gui things
