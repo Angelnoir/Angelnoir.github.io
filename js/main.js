@@ -16,6 +16,11 @@ function stepAndGUI() {
     simulateStep();
     stepNumber++;
 
+    updateGUI();
+
+}
+
+function updateGUI() {
     //update the graphics
     var percdead = dead / population;
     var percIll = allInfected() / population;
@@ -27,6 +32,23 @@ function stepAndGUI() {
     peopleTree.redraw();
     govTree.redraw();
 
+    var txt_days = document.getElementById("txt_days");
+    txt_days.innerHTML = stepNumber;
+
+    var txt_ill = document.getElementById("txt_ill");
+    txt_ill.innerHTML = allInfected();
+
+    var txt_dead = document.getElementById("txt_dead");
+    txt_dead.innerHTML = dead;
+
+    var txt_imm = document.getElementById("txt_imm");
+    txt_imm.innerHTML = immune;
+
+    var txt_bed = document.getElementById("txt_bed");
+    txt_bed.innerHTML = normalBeds;
+
+    var txt_icu = document.getElementById("txt_icu");
+    txt_icu.innerHTML = icu_capacity;
 }
 
 var govTree, peopleTree
@@ -36,13 +58,7 @@ $(function() {
     var virusPanel = document.getElementById("virusPanel");
     virusPanel.addEventListener("load", function() {
         //update the graphics
-        var percdead = dead / population;
-        var percIll = allInfected() / population;
-        var percHealthy = susceptible / population;
-        setPopulation(percHealthy, percIll, percdead);
-        var capa = allHospital() / (icu_capacity + normalBeds);
-        setHospitalCapacity(1 - capa);
-        changePoints(allInfected(), immune, dead);
+        updateGUI();
     });
 
     loadJSON("ressources/people.json", function(response) {
@@ -59,7 +75,7 @@ $(function() {
             for (let p of paths) {
                 p.addEventListener("mouseover", function() {
                     var tooltip = document.getElementById("TooltipPeople");
-                    tooltip.innerHTML = peopleTree.getInfos(p.getAttribute('id'));
+                    tooltip.innerHTML = peopleTree.getTitel(p.getAttribute('id'));
                 });
             }
         }, false);
