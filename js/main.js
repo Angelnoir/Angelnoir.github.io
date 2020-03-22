@@ -11,13 +11,10 @@ function loadJSON(ressource, callback) {
     xobj.send(null);
 }
 
-
-var i = 0;
-
 function stepAndGUI() {
-    stepNumber = i;
+
     simulateStep();
-    i++;
+    stepNumber++;
 
     //update the graphics
     var percdead = dead / population;
@@ -94,7 +91,8 @@ $(function() {
         stepAndGUI();
     });
     document.getElementById('Auto').addEventListener("mousedown", function() {
-        for (let i = 0; i < simulationTimeInDays; i++) {
+        init();
+        for (let j = 0; j < simulationTimeInDays; j++) {
             stepAndGUI();
         }
     });
