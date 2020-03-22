@@ -56,13 +56,13 @@ function spawnPoints() {
           container.appendChild(circle);
       }*/
     var count = 0
-    for (var i = 90; i < 540; i += 20) {
-        for (var j = 20; j < 635; j += 20) {
+    for (var i = 70; i < 550; i += 10) {
+        for (var j = 10; j < 635; j += 10) {
             var circle = document.createElementNS(svgns, 'circle');
 
             circle.setAttributeNS(null, 'cx', i);
             circle.setAttributeNS(null, 'cy', j);
-            circle.setAttributeNS(null, 'r', 5);
+            circle.setAttributeNS(null, 'r', 6);
 
             circle.setAttributeNS(null, 'fill', '#8ea604');
             circle.setAttributeNS(null, 'class', 'sus');
@@ -89,47 +89,40 @@ function changePoints(ill, im, d) {
         //only sus can get ill
         if (newIll > 0) {
             sus = pointGroup.getElementsByClassName('sus');
-            conv = 0;
-            for (let i of sus) {
-                i.setAttribute('class', 'ill');
-                i.setAttribute('fill', '#a70b10');
-                conv++;
-                if (conv == newIll) {
-                    break;
-                }
+            for (let i = 0; i < newIll; i++) {
+                x = getRandomInt(0, sus.length - 1);
+                var ele = sus[x];
+                console.log(x + ", " + sus.length);
+                ele.setAttribute('class', 'ill');
+                ele.setAttribute('fill', '#973535');
             }
         } else if (newIll < 0) {
             newDead++;
         }
     }
     lastIll = ill;
-
+    ills = pointGroup.getElementsByClassName('ill');
     //only ill can die
     if (newDead > 0) {
-        ills = pointGroup.getElementsByClassName('ill');
-        var conv = 0;
-        for (let i of ills) {
-            i.setAttribute('class', 'dead');
-            i.setAttribute('fill', '#463F3A');
-            conv++;
-            if (conv == newDead) {
-                break;
-            }
+
+        for (let i = 0; i < newDead; i++) {
+            x = getRandomInt(0, ills.length - 1);
+            var ele = ills[x];
+            console.log(x + ", " + ills.length);
+            ele.setAttribute('class', 'dead');
+            ele.setAttribute('fill', '#463F3A');
         }
     }
     lastDead = d;
-
+    ills = pointGroup.getElementsByClassName('ill');
     //only ill can get immune
     if (newImm > 0) {
-        ills = pointGroup.getElementsByClassName('ill');
-        conv = 0;
-        for (let i of ills) {
-            i.setAttribute('class', 'imm');
-            i.setAttribute('fill', '#009af5');
-            conv++;
-            if (conv == newImm) {
-                break;
-            }
+        for (let i = 0; i < newImm; i++) {
+            x = getRandomInt(0, ills.length - 1);
+            var ele = ills[x];
+            console.log(x + ", " + ills.length);
+            ele.setAttribute('class', 'imm');
+            ele.setAttribute('fill', '#b9b9b9');
         }
     }
     lastImm = im;
