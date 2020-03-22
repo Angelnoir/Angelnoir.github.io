@@ -17,10 +17,10 @@ var icuBedWillDie = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 var icuBedWillRecover = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 
 //imported cases
-var importedCasesPerDay = 10;
-var importedCasesPerDayChangeFactor = 1.1;
+var importedCasesPerDay = 5;
+var importedCasesPerDayChangeFactor = 1.2;
 const maxImportedCasesPerDay = 1000;
-const maxImportedCases = 1500000;
+const maxImportedCases = 750000;
 var currentlyImportedCases = 0;
 const tippingPointForImports = 225;
 const importedCasesPerDayChangeFactorAfterTippingPoint = 0.7;
@@ -56,6 +56,7 @@ var activities;
 function init(myActivities) {
   susceptible = population - allIncubated() - allInfectiuos() - immune - dead - allRecovering() - allHospital();
   activities = myActivities;
+  stepNumber = 0;
 }
 
 function advanceHospitals() {
@@ -214,7 +215,7 @@ function simulate() {
 }
 
 function printStats() {
-  print(stepNumber + ": Died: " + diedYesterday + "\tDead: " + dead + "\tInfected: " + allInfected() + "\tSusceptible: " + susceptible + "\tImmune: " + immune)
+  print(stepNumber + ": Died: " + diedYesterday + "\tDead: " + dead + "\tInfected: " + allInfected() + "\tSusceptible: " + susceptible + "\tImmune: " + immune + "\tImported: " + currentlyImportedCases)
 }
 
 function allIncubated() {
