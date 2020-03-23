@@ -11,19 +11,6 @@ function loadJSON(ressource, callback) {
     xobj.send(null);
 }
 
-function loadJSONSynchronous(ressource, callback) {
-    var xobj = new XMLHttpRequest();
-    xobj.overrideMimeType("application/json");
-    xobj.open('GET', ressource, false);
-    xobj.onreadystatechange = function() {
-        if (xobj.readyState == 4 && xobj.status == "200") {
-            // Required use of an anonymous callback as .open will NOT return a value but simply returns undefined in asynchronous mode
-            callback(xobj.responseText);
-        }
-    };
-    xobj.send(null);
-}
-
 function stepAndGUI() {
     simulateStep();
     stepNumber++;
@@ -81,6 +68,9 @@ function updateGUI() {
     var txt_icu = document.getElementById("txt_icu");
     txt_icu.innerHTML = icu_capacity;
 
+    var txt_credits = document.getElementById("txt_credits");
+    txt_credits.innerHTML = creditsToday;
+
     myChart.data.labels.push(stepNumber);
     addDataIll(myChart, allInfected());
     addDataIm(myChart, immune);
@@ -109,12 +99,19 @@ function initGUI() {
         p.addEventListener("mousedown", function() {
             govTree.activateActivity(p.getAttribute('id'));
             govTree.redraw();
+            var txt_credits = document.getElementById("txt_credits");
+            txt_credits.innerHTML = creditsToday;
         }, false);
+
         p.addEventListener("mouseover", function() {
             var tooltip = document.getElementById("TooltipGovernmentTitle");
             tooltip.innerHTML = govTree.getTitle(p.getAttribute('id'));
             var tooltip2 = document.getElementById("TooltipGovernment");
             tooltip2.innerHTML = govTree.getInfos(p.getAttribute('id'));
+            p.setAttribute('stroke', '#ffffff');
+        });
+        p.addEventListener("mouseout", function() {
+            p.setAttribute('stroke', '#8b8b8b')
         });
     }
 
@@ -228,6 +225,4 @@ $(function() {
     window.addEventListener("load", function() {
         waitForLoad();
     });
-
-
 });

@@ -1,6 +1,9 @@
 <svg xmlns="http://www.w3.org/2000/svg" id="svg2" width="536.68656" height="465.83006" version="1.1" viewBox="0 0 503.14638 436.72088">
    <defs id="gradientdefs">
    </defs>
+   <style>
+    #triangles { cursor: pointer; } /* specific elements */
+   </style>
    <g transform="translate(-.0008 145.40715)">
       <g id="triangles">
          <path id="K000" d="M84.51284.9999l83.516 144.65H.99884z" fill="#e2e2e2" stroke="#8b8b8b" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
