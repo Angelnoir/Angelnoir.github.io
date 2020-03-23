@@ -62,10 +62,35 @@ const initialPoliceForce = 0.75;
 //activities
 var activities
 
+//cost and credits
+var creditsToday = 0;
+var initialCredits = 12;
+var creditsSpentTotal = 0;
+
+//score and highscore
+var score = 0;
+
 function init(myActivities) {
   susceptible = population - allIncubated() - allInfectiuos() - immune - dead - allRecovering() - allHospital();
   activities = myActivities;
   stepNumber = 0;
+}
+
+function payForActivity(activity) {
+  if (activity != undefined) {
+    cost = activity[1].cost - activity[1].alreadyPaid;
+    payAble = Math.min(creditsToday, cost);
+    activity[1].alreadyPaid += payAble;
+    creditsToday -= payAble;
+    if (activity[1].alreadyPaid == activity[1].cost) {
+      activity[1].status = 4;
+      return true;
+    } else {
+      return false;
+    }
+  } else {
+    print("Someone tried to activate 'undefined'");
+  }
 }
 
 function calculateActivityEffects() {
@@ -241,6 +266,9 @@ function advanveInfectious() {
 
 function simulateStep() {
   oldDead = dead
+
+  //reset credits
+  credits = initialCredits;
 
   //calculate effects by measures taken
   calculateActivityEffects();
