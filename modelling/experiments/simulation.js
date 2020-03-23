@@ -74,6 +74,7 @@ function init(myActivities) {
   susceptible = population - allIncubated() - allInfectiuos() - immune - dead - allRecovering() - allHospital();
   activities = myActivities;
   stepNumber = 0;
+  creditsToday = initialCredits;
 }
 
 function payForActivity(activity) {
