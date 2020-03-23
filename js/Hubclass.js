@@ -15,7 +15,7 @@ function createAnimation(startPerc, endPerc, fromColor, toColor, id) {
 
     var node = svgDoc.getElementById(id);
     if (node != null) {
-        container.removeChild(node);
+        return false;
     }
 
     var linGrad = document.createElementNS(svgns, 'linearGradient');
@@ -66,6 +66,7 @@ function createAnimation(startPerc, endPerc, fromColor, toColor, id) {
     linGrad.appendChild(stop3);
 
     container.appendChild(linGrad);
+    return true;
 }
 
 
@@ -123,14 +124,17 @@ class TriangleHub {
                 case activityStatus.inactive:
                     return this.inactiveColor;
                 case activityStatus.canActivate:
-                    return this.canActivateColor;
+                    if (this.activities.get(aID).alreadyPaid == 0)
+                        return this.canActivateColor;
+                    else
+                        return null;
                 case activityStatus.active:
                     return this.activeColor;
                 default:
-                    return this.inactiveColor;
+                    return null;
             }
         } else {
-            return this.inactiveColor;
+            return null;
         }
     }
 
@@ -158,8 +162,11 @@ class TriangleHub {
         var paths = svgDoc.getElementById("triangles").getElementsByTagName('path');
         //this.processActivities();
         for (let p of paths) {
-            p.setAttribute('fill', this.getColor(p.getAttribute('id')));
-            this.animateTriangle(p.getAttribute('id'));
+            var col = this.getColor(p.getAttribute('id'));
+            if (col)
+                p.setAttribute('fill', col);
+            else
+                this.animateTriangle(p.getAttribute('id'));
         }
 
     }
@@ -172,20 +179,24 @@ class TriangleHub {
                 var prog = activity.activationAlreadyProgressed
                 var endperc = prog / dur;
                 var startperc = 0;
-                if (prog != 1) {
+                if (prog > 1) {
                     startperc = (prog - 1) / dur;
                 }
-                createAnimation(startperc, endperc, this.activeColor, this.prepColor, 'prep-' + aID);
+                var id = 'act-' + aID + "_" + startperc + "_" + endperc;
+                if (createAnimation(startperc, endperc, this.activeColor, this.prepColor, id)) {
 
-                var virusPanel = document.getElementById("govTree");
-                var svgDoc = virusPanel.contentDocument;
-                var bulbstop1 = svgDoc.getElementById('prep-' + aID + '-animate-stop1');
-                var bulbstop2 = svgDoc.getElementById('prep-' + aID + '-animate-stop2');
+                    var virusPanel = document.getElementById("govTree");
+                    var svgDoc = virusPanel.contentDocument;
+                    var bulbstop1 = svgDoc.getElementById(id + '-animate-stop1');
+                    var bulbstop2 = svgDoc.getElementById(id + '-animate-stop2');
 
-                svgDoc.getElementById(aID).setAttribute('fill', 'url(#prep-' + aID + ')');
+                    svgDoc.getElementById(aID).setAttribute('fill', 'url(#' + id + ')');
 
-                bulbstop1.beginElement();
-                bulbstop2.beginElement();
+                    bulbstop1.beginElement();
+                    bulbstop2.beginElement();
+                } else {
+                    //was called again with the same params -> ignore
+                }
             }
 
             //es wurde schon etwas bezahlt -> darstellen
@@ -197,17 +208,21 @@ class TriangleHub {
                 if (prog != 1) {
                     startperc = (prog - 1) / dur;
                 }
-                createAnimation(startperc, endperc, this.prepColor, this.canActivateColor, 'prep-' + aID);
+                var id = 'prep-' + aID + "_" + startperc + "_" + endperc;
+                if (createAnimation(startperc, endperc, this.prepColor, this.canActivateColor, id)) {
 
-                var virusPanel = document.getElementById("govTree");
-                var svgDoc = virusPanel.contentDocument;
-                var bulbstop1 = svgDoc.getElementById('prep-' + aID + '-animate-stop1');
-                var bulbstop2 = svgDoc.getElementById('prep-' + aID + '-animate-stop2');
+                    var virusPanel = document.getElementById("govTree");
+                    var svgDoc = virusPanel.contentDocument;
+                    var bulbstop1 = svgDoc.getElementById(id + '-animate-stop1');
+                    var bulbstop2 = svgDoc.getElementById(id + '-animate-stop2');
 
-                svgDoc.getElementById(aID).setAttribute('fill', 'url(#prep-' + aID + ')');
+                    svgDoc.getElementById(aID).setAttribute('fill', 'url(#' + id + ')');
 
-                bulbstop1.beginElement();
-                bulbstop2.beginElement();
+                    bulbstop1.beginElement();
+                    bulbstop2.beginElement();
+                } else {
+                    //was called again with the same params -> ignore
+                }
             }
         }
     }
