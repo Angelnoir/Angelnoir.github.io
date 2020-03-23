@@ -1,7 +1,20 @@
 function loadJSON(ressource, callback) {
     var xobj = new XMLHttpRequest();
     xobj.overrideMimeType("application/json");
-    xobj.open('GET', ressource, true); // Replace 'my_data' with the path to your file
+    xobj.open('GET', ressource, true);
+    xobj.onreadystatechange = function() {
+        if (xobj.readyState == 4 && xobj.status == "200") {
+            // Required use of an anonymous callback as .open will NOT return a value but simply returns undefined in asynchronous mode
+            callback(xobj.responseText);
+        }
+    };
+    xobj.send(null);
+}
+
+function loadJSONSynchronous(ressource, callback) {
+    var xobj = new XMLHttpRequest();
+    xobj.overrideMimeType("application/json");
+    xobj.open('GET', ressource, false);
     xobj.onreadystatechange = function() {
         if (xobj.readyState == 4 && xobj.status == "200") {
             // Required use of an anonymous callback as .open will NOT return a value but simply returns undefined in asynchronous mode
@@ -12,7 +25,6 @@ function loadJSON(ressource, callback) {
 }
 
 function stepAndGUI() {
-
     simulateStep();
     stepNumber++;
     updateGUI();
@@ -79,10 +91,53 @@ function updateGUI() {
 
 }
 
-var govTree, peopleTree
-var myChart
-$(function() {
+function initGUI() {
+    //init peopleTree (not much to do here)
+    peopleTree = new TriangleHub("peopleTree", peopleJson);
+    //init govTree 
+    govTree = new TriangleHub("govTree", govJson);
+    //initSim
+    init(govTree.activities);
 
+    var govGui = document.getElementById("govTree");
+    // get the inner DOM of alpha.svg
+    var svgDoc = govGui.contentDocument;
+    // get the inner element by id
+    var paths = svgDoc.getElementById("triangles").getElementsByTagName('path');
+    // add behaviour
+    for (let p of paths) {
+        p.addEventListener("mousedown", function() {
+            govTree.activateActivity(p.getAttribute('id'));
+            govTree.redraw();
+        }, false);
+        p.addEventListener("mouseover", function() {
+            var tooltip = document.getElementById("TooltipGovernmentTitle");
+            tooltip.innerHTML = govTree.getTitle(p.getAttribute('id'));
+            var tooltip2 = document.getElementById("TooltipGovernment");
+            tooltip2.innerHTML = govTree.getInfos(p.getAttribute('id'));
+        });
+    }
+
+    //ausblenden des Tooltips wenn die Maus alle Dreiecke verlässt
+    govGui.addEventListener("mouseout", function() {
+        var tooltip = document.getElementById("TooltipGovernment");
+        tooltip.innerHTML = "";
+        var tooltip2 = document.getElementById("TooltipGovernmentTitle");
+        tooltip2.innerHTML = "";
+    });
+
+    //add Event Listeners to Buttons
+    document.getElementById('Advance').addEventListener("mousedown", function() {
+        stepAndGUI();
+    });
+    document.getElementById('Auto').addEventListener("mousedown", function() {
+        init(govTree.activities);
+        for (let j = 0; j < simulationTimeInDays; j++) {
+            stepAndGUI();
+        }
+    });
+
+    //init chart
     var ctx = document.getElementById('myChart');
     myChart = new Chart(ctx, {
         type: 'line',
@@ -141,82 +196,38 @@ $(function() {
         }
     });
 
-    var virusPanel = document.getElementById("virusPanel");
-    virusPanel.addEventListener("load", function() {
-        //update the graphics
-        updateGUI();
-    });
+    updateGUI();
+    document.getElementById('loader').style.display = "none";
+}
 
+function waitForLoad() {
+    if (!(hasLoadedGov && hasLoadedPeople)) {
+        setTimeout(waitForLoad, 300);
+    } else {
+        initGUI();
+    }
+}
+
+var govTree, peopleTree, virusPanel, myChart, peopleJson, govJson
+
+var hasLoadedPeople = false,
+    hasLoadedGov = false
+$(function() {
+
+    //to load: SVG for people, svg for Gov, svg for virus, json response, chart
     loadJSON("ressources/people.json", function(response) {
-        peopleTree = new TriangleHub("peopleTree", response);
-        console.log(response);
-        var triangles = document.getElementById("peopleTree");
-        triangles.addEventListener("load", function() {
-            peopleTree.redraw();
-            // get the inner DOM of alpha.svg
-            var svgDoc = triangles.contentDocument;
-            // get the inner element by id
-            var paths = svgDoc.getElementsByTagName('path');
-            // add behaviour
-            for (let p of paths) {
-                p.addEventListener("mouseover", function() {
-                    // var tooltip = document.getElementById("TooltipPeople");
-                    //tooltip.innerHTML = peopleTree.getTitel(p.getAttribute('id'));
-                });
-            }
-        }, false);
-        //ausblenden des Tooltips wenn die Maus alle Dreiecke verlässt
-        triangles.addEventListener("mouseout", function() {
-            // var tooltip = document.getElementById("TooltipPeople");
-            //tooltip.innerHTML = "";
-        });
+        peopleJson = response;
+        hasLoadedPeople = true;
     });
 
-    //We have to do absoluteley everything only when the JSON has been loaded!!!
     loadJSON("ressources/gov.json", function(response) {
-        //select the government tree
-        govTree = new TriangleHub("govTree", response);
-        init(govTree.activities);
-
-        var trianglesG = document.getElementById("govTree");
-        trianglesG.addEventListener("load", function() {
-            govTree.redraw();
-            // get the inner DOM of alpha.svg
-            var svgDoc = trianglesG.contentDocument;
-            // get the inner element by id
-            var paths = svgDoc.getElementById("triangles").getElementsByTagName('path');
-            // add behaviour
-            for (let p of paths) {
-                p.addEventListener("mousedown", function() {
-                    govTree.activateActivity(p.getAttribute('id'));
-                    govTree.redraw();
-                }, false);
-                p.addEventListener("mouseover", function() {
-                    var tooltip = document.getElementById("TooltipGovernmentTitle");
-                    tooltip.innerHTML = govTree.getTitle(p.getAttribute('id'));
-                    var tooltip2 = document.getElementById("TooltipGovernment");
-                    tooltip2.innerHTML = govTree.getInfos(p.getAttribute('id'));
-                });
-            }
-        }, false);
-
-        //ausblenden des Tooltips wenn die Maus alle Dreiecke verlässt
-        trianglesG.addEventListener("mouseout", function() {
-            var tooltip = document.getElementById("TooltipGovernment");
-            tooltip.innerHTML = "";
-            var tooltip2 = document.getElementById("TooltipGovernmentTitle");
-            tooltip2.innerHTML = "";
-        });
-
-        document.getElementById('Advance').addEventListener("mousedown", function() {
-            stepAndGUI();
-        });
-        document.getElementById('Auto').addEventListener("mousedown", function() {
-            init(govTree.activities);
-            for (let j = 0; j < simulationTimeInDays; j++) {
-                stepAndGUI();
-            }
-        });
-
+        govJson = response;
+        hasLoadedGov = true;
     });
+
+    window.addEventListener("load", function() {
+        waitForLoad();
+    });
+
+
 });

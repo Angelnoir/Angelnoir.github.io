@@ -94,8 +94,10 @@ class TriangleHub {
 
     activateActivity(activityID) {
         if (this.checkActicity(activityID)) {
-            this.activities.get(activityID).status = activityStatus.activating;
-            this.activateSuccessors(activityID);
+            var a = this.activities.get(activityID);
+            if (payForActivity([activityID, a])) {
+                this.activateSuccessors(activityID);
+            }
         }
     }
 
