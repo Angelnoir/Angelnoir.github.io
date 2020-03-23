@@ -134,7 +134,7 @@ class TriangleHub {
                     return null;
             }
         } else {
-            return null;
+            return this.inactiveColor;
         }
     }
 
@@ -205,9 +205,9 @@ class TriangleHub {
                 var prog = activity.alreadyPaid
                 var endperc = prog / dur;
                 var startperc = 0;
-                if (prog != 1) {
+                /*if (prog > 1) {
                     startperc = (prog - 1) / dur;
-                }
+                }*/
                 var id = 'prep-' + aID + "_" + startperc + "_" + endperc;
                 if (createAnimation(startperc, endperc, this.prepColor, this.canActivateColor, id)) {
 
