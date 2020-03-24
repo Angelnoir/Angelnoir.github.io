@@ -207,7 +207,7 @@
           "descHarm": "",
           "activationDuration": 28,
           "activationAlreadyProgressed": 0,
-          "activationNature": "linear",
+          "activationNature": "instant",
           "cost": 24,
           "alreadyPaid": 0,
           "acceptanceEffect": 0.0,

@@ -83,6 +83,7 @@ function payForActivity(activity) {
     payAble = Math.min(creditsToday, cost);
     activity[1].alreadyPaid += payAble;
     creditsToday -= payAble;
+    creditsSpentTotal += payAble;
     if (activity[1].alreadyPaid == activity[1].cost) {
       activity[1].status = 4;
       return true;
@@ -269,7 +270,7 @@ function simulateStep() {
   oldDead = dead
 
   //reset credits
-  credits = initialCredits;
+  creditsToday = initialCredits;
 
   //calculate effects by measures taken
   calculateActivityEffects();
