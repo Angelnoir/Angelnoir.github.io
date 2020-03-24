@@ -28,6 +28,8 @@ const importedCasesPerDayChangeFactorAfterTippingPoint = 0.8;
 //number of infections (initial) per infected person
 var r_0 = 2.3;
 var initial_r_0 = 2.3;
+var best_r_0 = 2.3;
+var worst_r_0 = 2.3;
 
 //model assumptions
 var hospitalizationRate = 0.05
@@ -58,6 +60,8 @@ const initialPublicAcceptance = 0.25;
 var policeForce = 0.8;
 const maxPoliceForce = 0.75;
 const initialPoliceForce = 0.75;
+var bestPublicAcceptance = 0.2;
+var worstPublicAcceptance = 0.2;
 
 //activities
 var activities
@@ -69,12 +73,18 @@ var creditsSpentTotal = 0;
 
 //score and highscore
 var score = 0;
+var maxDead = 2500000;
+var simulationFinished = false;
+var simulationFinishedOnDay = 0;
 
 function init(myActivities) {
   susceptible = population - allIncubated() - allInfectiuos() - immune - dead - allRecovering() - allHospital();
   activities = myActivities;
   stepNumber = 0;
   creditsToday = initialCredits;
+  score = 0;
+  simulationFinished = false;
+  simulationFinishedOnDay = 0;
 }
 
 function payForActivity(activity) {
@@ -310,6 +320,13 @@ function simulateStep() {
 
   advanceActivations();
 
+  //calculate score & sim finished?
+  score = maxDead - dead;
+  simulationFinished = (allInfected() == 0);
+  if (simulationFinished) {
+    simulationFinishedOnDay = stepNumber;
+  }
+
   printStats()
 }
 
@@ -321,7 +338,7 @@ function simulate() {
 }
 
 function printStats() {
-  print(stepNumber + ": Died: " + diedYesterday + "\tDead: " + dead + "\tInfected: " + allInfected() + "\tSusceptible: " + susceptible + "\tImmune: " + immune + "\tImported: " + currentlyImportedCases + "\tr: " + r_0 + "\tNormal Beds: " + normalBeds + "\tICU Beds: " + icu_capacity)
+  print(stepNumber + ": Score: " + score + ":\t Died: " + diedYesterday + "\tDead: " + dead + "\tInfected: " + allInfected() + "\tSusceptible: " + susceptible + "\tImmune: " + immune + "\tImported: " + currentlyImportedCases + "\tr: " + r_0 + "\tNormal Beds: " + normalBeds + "\tICU Beds: " + icu_capacity + "\tFinished: " + simulationFinished)
 }
 
 function allIncubated() {
