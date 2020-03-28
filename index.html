@@ -13,10 +13,6 @@
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <!-- FONT
-  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet">
-
     <!-- CSS
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
     <link rel="stylesheet" href="css/normalize.css">
@@ -35,12 +31,10 @@
 
 <body style="background-color: white">
     <div id="loader"></div>
-    <div class="container" id='contaent' style="margin-top: 10px;">
+    <div class="container" id='content' style="margin-top: 10px;">
         <div class="row">
             <div class="offset-by-two three columns">
-                <span style="display: inline-block; width: 9em;">Aktuell Infizierte:</span> <span id="txt_ill" style="display: inline-block; width: 8em; text-align: right; font-weight: bold;">5</span> <br/><span style="display: inline-block; width: 9em;">Bisherige Tote:</span>
-                <span id="txt_dead" style="display: inline-block; width: 8em; text-align: right; font-weight: bold;">5</span> <br/> <span style="display: inline-block; width: 9em;">Bisherige Immune:</span>
-                <span id="txt_imm" style="display: inline-block; width: 8em; text-align: right; font-weight: bold;">5</span>
+
             </div>
             <div class="three columns">
                 <span style="display: inline-block; width: 10em;">Krankenhausbetten:</span>
@@ -52,33 +46,62 @@
                 <span id="txt_days" style="display: inline-block; width: 4em; text-align: right; font-weight: bold;">5</span> <br> Arbeitsstunden übrig: <span id='txt_credits' style="display: inline-block; width: 3em; text-align: right; font-weight: bold;"></span>
             </div>
             <div class="two columns">
-                <button type="button" id="Advance">Advance</button>
-                <button type="button" id="Auto">Autosimulation</button>
+
             </div>
         </div>
         <div class="row">
+            <div class="five columns" id="government">
+                <ul>
+                    <li>
+                        <object id="govTree" data="images/treeGov.svg " type="image/svg+xml" width="100%"></object>
+                    </li>
+                    <li>
+                        <h4 id="TooltipGovernmentTitle">
+                        </h4>
+                        <p id="TooltipGovernment"></p>
+                    </li>
+                </ul>
+
+            </div>
+            <div class="three columns" id="virus">
+                <ul>
+                    <li>
+                        <object id="virusPanel" data="images/Deutschland.svg " type="image/svg+xml" class="u-max-full-width"></object>
+                    </li>
+                    <li>
+                        <canvas id="myChart" width="100%" height="40%"></canvas>
+                    </li>
+                    <li>
+                        <span style="display: inline-block; width: 9em;">Aktuell Infizierte:</span>
+                        <span id="txt_ill" style="display: inline-block; width: 8em; text-align: right; font-weight: bold;">5</span>
+                    </li>
+                    <li>
+                        <span style="display: inline-block; width: 9em;">Bisherige Tote:</span>
+                        <span id="txt_dead" style="display: inline-block; width: 8em; text-align: right; font-weight: bold;">5</span>
+                    </li>
+                    <li>
+                        <span style="display: inline-block; width: 9em;">Bisherige Immune:</span>
+                        <span id="txt_imm" style="display: inline-block; width: 8em; text-align: right; font-weight: bold;">5</span>
+                    </li>
+                    <li>
+                        <button type="button" id="Advance">Nächster Tag</button>
+                        <button type="button" id="Auto">Springe zum Ende</button>
+                    </li>
+                </ul>
+
+            </div>
             <div class="four columns" id="people">
-                <object id="peopleTree" data="images/minTriangles.svg" type="image/svg+xml" width="100%"></object>
+                <ul>
+                    <li><object id="peopleTree" data="images/treePeople.svg" type="image/svg+xml" width="100%"></object></li>
+                    <li>
+                        <h4 id="TooltipGovernmentTitle">
+                        </h4>
+                        <p id="TooltipGovernment"></p>
+                    </li>
+                </ul>
+
             </div>
-            <div class="four columns" id="virus">
-                <object id="virusPanel" data="images/Deutschland.svg " type="image/svg+xml" width="100%"></object>
-            </div>
-            <div class="four columns" id="government">
-                <object id="govTree" data="images/treeGov.svg " type="image/svg+xml" width="100%"></object>
-            </div>
-        </div>
-        <div class="row">
-            <div class="one-third column">
-                <h1></h1>
-            </div>
-            <div class="one-third column">
-                <canvas id="myChart" width="100%" height="40%"></canvas>
-            </div>
-            <div class="one-third column">
-                <h4 id="TooltipGovernmentTitle">
-                </h4>
-                <p id="TooltipGovernment"></p>
-            </div>
+
         </div>
 
     </div>

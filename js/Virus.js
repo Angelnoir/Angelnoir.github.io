@@ -8,9 +8,9 @@ function setPopulation(percHealthy, percIll, percDead) {
     var left3 = svgDoc.getElementById('left3');
     //var left4 = svgDoc.getElementById('left4');
 
-    left1.setAttribute('height', initialHeight * percDead);
-    left2.setAttribute('height', initialHeight * (percDead + percIll));
-    left3.setAttribute('height', initialHeight * (percDead + percIll + percHealthy));
+    //left1.setAttribute('height', initialHeight * percDead);
+    //left2.setAttribute('height', initialHeight * (percDead + percIll));
+    //left3.setAttribute('height', initialHeight * (percDead + percIll + percHealthy));
     //left4.setAttribute('height', initialHeight * (percDead+percIll));
 }
 
@@ -20,7 +20,7 @@ function setHospitalCapacity(perc) {
     var svgDoc = virusPanel.contentDocument;
     // get the inner element by id
     var hospitalCap = svgDoc.getElementById('right2');
-    hospitalCap.setAttribute('height', initialHeight * perc);
+    //hospitalCap.setAttribute('height', initialHeight * perc);
 }
 
 function getRandomInt(min, max) {
@@ -74,6 +74,40 @@ function spawnPoints() {
     pplPerPoint = population / count;
 }
 
+function getPoints() {
+    var svgns = "http://www.w3.org/2000/svg";
+
+    var virusPanel = document.getElementById("virusPanel");
+    var svgDoc = virusPanel.contentDocument;
+    points = svgDoc.getElementsByTagName('circle');
+
+    /*  for (var i = 0; i < population / pplPerPoint; i++) {
+          var circle = document.createElementNS(svgns, 'circle');
+          var x = getRandomInt(75, 505);
+          var y = getRandomInt(25, 625);
+
+          circle.setAttributeNS(null, 'cx', x);
+          circle.setAttributeNS(null, 'cy', y);
+          circle.setAttributeNS(null, 'r', 3.5);
+
+          circle.setAttributeNS(null, 'fill', '#8ea604');
+          circle.setAttributeNS(null, 'class', 'sus');
+
+          container.appendChild(circle);
+      }*/
+    var count = points.length;
+    for (var p of points) {
+
+        p.setAttribute('fill', '#8ea604');
+        p.setAttribute('class', 'sus');
+        //p.setAttribute('visibility', 'hidden');
+
+
+
+    }
+    pplPerPoint = population / count;
+}
+
 //something is still fishy here, even when there are no longer infected, the red points will stay
 function changePoints(ill, im, d) {
     im = Math.round(im / pplPerPoint);
@@ -95,6 +129,7 @@ function changePoints(ill, im, d) {
                 console.log(x + ", " + sus.length);
                 ele.setAttribute('class', 'ill');
                 ele.setAttribute('fill', '#973535');
+                //ele.setAttribute('visibility', 'visible')
             }
         } else if (newIll < 0) {
             newDead++;
@@ -111,6 +146,7 @@ function changePoints(ill, im, d) {
             console.log(x + ", " + ills.length);
             ele.setAttribute('class', 'dead');
             ele.setAttribute('fill', '#463F3A');
+            //ele.setAttribute('visibility', 'visible')
         }
     }
     lastDead = d;
@@ -123,6 +159,7 @@ function changePoints(ill, im, d) {
             console.log(x + ", " + ills.length);
             ele.setAttribute('class', 'imm');
             ele.setAttribute('fill', '#b9b9b9');
+            //ele.setAttribute('visibility', 'hidden')
         }
     }
     lastImm = im;
@@ -141,7 +178,8 @@ virusPanel.addEventListener("load", function() {
     // get the inner element by id
     var hospitalCap = svgDoc.getElementById('right2');
     // add behaviour
-    initialHeight = hospitalCap.getAttribute('height');
-    spawnPoints();
+    //initialHeight = hospitalCap.getAttribute('height');
+    initialHeight = 1;
+    getPoints();
 
 }, false);

@@ -1,0 +1,108 @@
+<!doctype html>
+
+<html lang="de">
+
+<head>
+    <meta charset="utf-8">
+
+    <title>Flattten the Curve</title>
+    <meta name="description" content="Flatten the Curve">
+    <meta name="author" content="Chilled Mini Pizza & Excited Toast">
+
+    <!-- Mobile Specific Metas
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- CSS
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/skeleton.css">
+
+    <!--Scripts-->
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
+    <script type="text/javascript" defer src="modelling/experiments/simulation.js"></script>
+
+    <script type="text/javascript" defer src="js/Hubclass.js"></script>
+    <script type="text/javascript" defer src="js/Virus.js"></script>
+    <script type="text/javascript" defer src="js/main.js"></script>
+
+</head>
+
+<body style="background-color: white">
+    <div id="loader"></div>
+    <div class="container" id='content' style="margin-top: 10px;">
+
+        <div class="row">
+            <div class="two columns">
+                <ul>
+                    <li>
+                        <object id="virusPanel" data="images/Deutschland.svg " type="image/svg+xml" class="u-max-full-width"></object>
+                    </li>
+                    <li>
+                        <span style="display: inline-block; width: 9em;">Krankenhausbetten:</span>
+                        <span id="txt_bed" style="display: inline-block; width: 8em; text-align: right; font-weight: bold;">5</span> <br/> <span style="display: inline-block; width: 9em;">Beatmungsplätze:</span>
+                        <span id="txt_icu" style="display: inline-block; width: 8em; text-align: right; font-weight: bold;">5</span><br/>
+                        <span style="display: inline-block; width: 9em;">Aktuell Infizierte:</span>
+                        <span id="txt_ill" style="display: inline-block; width: 8em; text-align: right; font-weight: bold;">5</span><br/>
+                        <span style="display: inline-block; width: 9em;">Bisherige Tote:</span>
+                        <span id="txt_dead" style="display: inline-block; width: 8em; text-align: right; font-weight: bold;">5</span><br/>
+                        <span style="display: inline-block; width: 9em;">Bisherige Immune:</span>
+                        <span id="txt_imm" style="display: inline-block; width: 8em; text-align: right; font-weight: bold;">5</span><br/>
+                    </li>
+                    <li>
+                        Arbeitsstunden übrig: <span id='txt_credits' style="display: inline-block; width: 3em; text-align: right; font-weight: bold;"></span>
+                    </li>
+                    <li>
+                        <canvas id="myChart" width="100%" height="100%"></canvas>
+                    </li>
+                    <li>
+                        <button type="button">Gesellschaft</button>
+                    </li>
+                    <li>
+                        <button type="button">Regierungsmaßnahmen erlassen</button>
+                    </li>
+                </ul>
+            </div>
+            <div class="ten columns">
+                <div class="box">
+                    <div class="row content">
+                        12.03.2020
+                        <span id="txt_days" style="display: inline-block; width: 4em; text-align: right; font-weight: bold;">5</span> Tage seit Patient 0
+                        <button type="button" id="Advance">Nächster Tag</button>
+                        <button type="button" id="Advance">Vorspulen</button>
+                        <button type="button" id="Auto">Springe zum Ende</button>
+                    </div>
+                    <div class="row fill">
+                        <object id="peopleTree" data="images/treePeople.svg" type="image/svg+xml"></object>
+                        <object id="govTree" data="images/treeGov.svg " type="image/svg+xml"></object>
+                    </div>
+                    <div class="row content">
+                        <h4 id="TooltipGovernmentTitle">
+                        </h4>
+                        <p id="TooltipGovernment" height="10%"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+    <div class="four columns" id="people">
+        <ul>
+            <li></li>
+            <li>
+                <h4 id="TooltipGovernmentTitle">
+                </h4>
+                <p id="TooltipGovernment"></p>
+            </li>
+        </ul>
+
+    </div>
+
+    </div>
+
+    </div>
+</body>
+
+</html>
