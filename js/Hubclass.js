@@ -75,10 +75,10 @@ class TriangleHub {
     constructor(canvasID, jsonresource) {
 
         this.canvasID = canvasID;
-        this.inactiveColor = "#b9b9b9";
-        this.canActivateColor = "#e7e7e7";
-        this.activeColor = "#8ea604";
-        this.prepColor = "#046ca6";
+        this.inactiveColor = "#64646A"; //"#b9b9b9";
+        this.canActivateColor = "#B7B6C2"; //"#e7e7e7";
+        this.activeColor = "#447604"; //#8ea604";
+        this.prepColor = "#2F6690"; //"#046ca6";
         this.activities = new Map(JSON.parse(jsonresource));
     }
 

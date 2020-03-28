@@ -207,6 +207,7 @@ function initGUI() {
 
     updateGUI();
     document.getElementById('loader').style.display = "none";
+    pplGUI.style.display = "none";
 }
 
 function waitForLoad() {
