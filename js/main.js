@@ -89,6 +89,8 @@ function initGUI() {
     //initSim
     init(govTree.activities);
 
+
+    var pplGUI = document.getElementById("peopleTree");
     var govGui = document.getElementById("govTree");
     // get the inner DOM of alpha.svg
     var svgDoc = govGui.contentDocument;
@@ -132,6 +134,16 @@ function initGUI() {
         for (let j = 0; j < simulationTimeInDays; j++) {
             stepAndGUI();
         }
+    });
+
+    document.getElementById('btn_gov').addEventListener("mousedown", function() {
+        govGui.style.display = 'block';
+        pplGUI.style.display = 'none';
+    });
+
+    document.getElementById('btn_ppl').addEventListener("mousedown", function() {
+        govGui.style.display = 'none';
+        pplGUI.style.display = 'block';
     });
 
     //init chart
