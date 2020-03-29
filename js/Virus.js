@@ -33,47 +33,6 @@ var lastIll = 0,
 
 var pplPerPoint
 
-function spawnPoints() {
-    var svgns = "http://www.w3.org/2000/svg";
-
-    var virusPanel = document.getElementById("virusPanel");
-    var svgDoc = virusPanel.contentDocument;
-    container = svgDoc.getElementById('group');
-    console.log(container);
-
-    /*  for (var i = 0; i < population / pplPerPoint; i++) {
-          var circle = document.createElementNS(svgns, 'circle');
-          var x = getRandomInt(75, 505);
-          var y = getRandomInt(25, 625);
-
-          circle.setAttributeNS(null, 'cx', x);
-          circle.setAttributeNS(null, 'cy', y);
-          circle.setAttributeNS(null, 'r', 3.5);
-
-          circle.setAttributeNS(null, 'fill', '#8ea604');
-          circle.setAttributeNS(null, 'class', 'sus');
-
-          container.appendChild(circle);
-      }*/
-    var count = 0
-    for (var i = 70; i < 550; i += 10) {
-        for (var j = 10; j < 635; j += 10) {
-            var circle = document.createElementNS(svgns, 'circle');
-
-            circle.setAttributeNS(null, 'cx', i);
-            circle.setAttributeNS(null, 'cy', j);
-            circle.setAttributeNS(null, 'r', 6);
-
-            circle.setAttributeNS(null, 'fill', '#8ea604');
-            circle.setAttributeNS(null, 'class', 'sus');
-
-            container.appendChild(circle);
-            count++;
-        }
-    }
-    pplPerPoint = population / count;
-}
-
 function getPoints() {
     var svgns = "http://www.w3.org/2000/svg";
 
@@ -98,7 +57,7 @@ function getPoints() {
     var count = points.length;
     for (var p of points) {
 
-        p.setAttribute('fill', '#8ea604');
+        p.setAttribute('fill', activeColor);
         p.setAttribute('class', 'sus');
         //p.setAttribute('visibility', 'hidden');
 
@@ -128,7 +87,7 @@ function changePoints(ill, im, d) {
                 var ele = sus[x];
                 console.log(x + ", " + sus.length);
                 ele.setAttribute('class', 'ill');
-                ele.setAttribute('fill', '#973535');
+                ele.setAttribute('fill', '#931F1D');
                 //ele.setAttribute('visibility', 'visible')
             }
         } else if (newIll < 0) {
@@ -145,7 +104,7 @@ function changePoints(ill, im, d) {
             var ele = ills[x];
             console.log(x + ", " + ills.length);
             ele.setAttribute('class', 'dead');
-            ele.setAttribute('fill', '#463F3A');
+            ele.setAttribute('fill', '#353831');
             //ele.setAttribute('visibility', 'visible')
         }
     }
@@ -158,7 +117,7 @@ function changePoints(ill, im, d) {
             var ele = ills[x];
             console.log(x + ", " + ills.length);
             ele.setAttribute('class', 'imm');
-            ele.setAttribute('fill', '#b9b9b9');
+            ele.setAttribute('fill', '#C9C9D4');
             //ele.setAttribute('visibility', 'hidden')
         }
     }

@@ -69,16 +69,17 @@ function createAnimation(startPerc, endPerc, fromColor, toColor, id) {
     return true;
 }
 
+var inactiveColor = "#b9b9b9"; //"#64646A"
+var canActivateColor = "#e7e7e7"; //"#B7B6C2";
+var activeColor = "#8ea604"; //"#447604";
+var prepColor = "#046ca6"; //"#2F6690";
+
 
 class TriangleHub {
 
     constructor(canvasID, jsonresource) {
 
         this.canvasID = canvasID;
-        this.inactiveColor = "#64646A"; //"#b9b9b9";
-        this.canActivateColor = "#B7B6C2"; //"#e7e7e7";
-        this.activeColor = "#447604"; //#8ea604";
-        this.prepColor = "#2F6690"; //"#046ca6";
         this.activities = new Map(JSON.parse(jsonresource));
     }
 
@@ -122,19 +123,19 @@ class TriangleHub {
             var s = this.activities.get(aID).status;
             switch (s) {
                 case activityStatus.inactive:
-                    return this.inactiveColor;
+                    return inactiveColor;
                 case activityStatus.canActivate:
                     if (this.activities.get(aID).alreadyPaid == 0)
-                        return this.canActivateColor;
+                        return canActivateColor;
                     else
                         return null;
                 case activityStatus.active:
-                    return this.activeColor;
+                    return activeColor;
                 default:
                     return null;
             }
         } else {
-            return this.inactiveColor;
+            return inactiveColor;
         }
     }
 
@@ -183,7 +184,7 @@ class TriangleHub {
                     startperc = (prog - 1) / dur;
                 }
                 var id = 'act-' + aID + "_" + startperc + "_" + endperc;
-                if (createAnimation(startperc, endperc, this.activeColor, this.prepColor, id)) {
+                if (createAnimation(startperc, endperc, activeColor, prepColor, id)) {
 
                     var virusPanel = document.getElementById("govTree");
                     var svgDoc = virusPanel.contentDocument;
@@ -209,7 +210,7 @@ class TriangleHub {
                     startperc = (prog - 1) / dur;
                 }*/
                 var id = 'prep-' + aID + "_" + startperc + "_" + endperc;
-                if (createAnimation(startperc, endperc, this.prepColor, this.canActivateColor, id)) {
+                if (createAnimation(startperc, endperc, prepColor, canActivateColor, id)) {
 
                     var virusPanel = document.getElementById("govTree");
                     var svgDoc = virusPanel.contentDocument;
