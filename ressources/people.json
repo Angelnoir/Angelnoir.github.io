@@ -1,31 +1,196 @@
 [
     [
-        "a1",
+        "C0",
         {
-            "name": "Aktivität 1",
-            "status": 2,
-            "successors": [
-                "a2",
-                "a3"
-            ]
+            "name": "Home Office",
+            "desc": "Firmen nutzen vermehrt Home Office, um die Verbreitung innerhalb ihrer Unternehmen zu verringern.",
+            "descImprove": "Senkt Ausbreitung (R0 -0.1)",
+            "descHarm": "",
+            "activationDuration": 14,
+            "activationAlreadyProgressed": 0,
+            "activationNature": "linear",
+            "cost": 0,
+            "alreadyPaid": 0,
+            "status": 1,
+            "type": "good",
+            "rEffect": -0.1,
+            "activationTrigger": {
+              "nature":"threshold",
+              "parameter":"K0",
+              "type":"above",
+              "value":1.0,
+              "probability":0.2
+            },
+            "deactivationTrigger": {
+              "nature":"threshold",
+              "parameter":"K0",
+              "type":"below",
+              "value":0.0,
+              "probability":1.0
+            },
+            "successors": ["C00", "C01", "C02"]
         }
     ],
     [
-        "a2",
+        "C00",
         {
-            "name": "Aktivität 2",
+            "name": "Bildungsangebote kostenlos",
+            "desc": "Bildungsangebote werden mit Rabatten und vermehrt kostenlos angeboten.",
+            "descImprove": "Erhöht Akzeptanz (2%)<br/>Senkt Ausbreitung leicht (R0 -0.01)",
+            "descHarm": "",
+            "activationDuration": 14,
+            "activationAlreadyProgressed": 0,
+            "activationNature": "linear",
+            "cost": 0,
+            "alreadyPaid": 0,
             "status": 1,
-            "successors": [
-                "a4"
-            ]
+            "type": "good",
+            "rEffect": -0.01,
+            "acceptanceEffect": 0.02,
+            "activationTrigger": {
+              "nature":"threshold",
+              "parameter":"K0",
+              "type":"above",
+              "value":1.0,
+              "probability":0.2
+            },
+            "deactivationTrigger": {
+              "nature":"threshold",
+              "parameter":"K0",
+              "type":"below",
+              "value":0.0,
+              "probability":1.0
+            },
+            "successors": ["C000"]
         }
     ],
     [
-        "a3",
+        "C000",
         {
-            "name": "Aktivität 3",
+            "name": "Hackathons entstehen",
+            "desc": "Hackathons adressieren die Auswirkungen des Virus und versuchen das Leben zu erleichtern.",
+            "descImprove": "Erhöht Akzeptanz (1%)<br/>Senkt Ausbreitung  (R0 -0.05)",
+            "descHarm": "",
+            "activationDuration": 7,
+            "activationAlreadyProgressed": 0,
+            "activationNature": "instant",
+            "cost": 0,
+            "alreadyPaid": 0,
             "status": 1,
+            "type": "good",
+            "rEffect": -0.05,
+            "acceptanceEffect": 0.01,
+            "activationTrigger": {
+              "nature":"threshold",
+              "parameter":"acceptance",
+              "type":"above",
+              "value":0.3,
+              "probability":0.01
+            },
+            "deactivationTrigger": {
+              "nature":"none"
+            },
             "successors": []
         }
-    ]
+    ],
+    [
+        "C01",
+        {
+            "name": "Streamingseiten günstiger",
+            "desc": "Streamingseiten erkennen die Möglichkeit neue Kund*Innen zu gewinnen.<br/>Die Anzahl an kostenlosen Angeboten, Promo-Aktionen etc. wächst.",
+            "descImprove": "Erhöht Akzeptanz (2%)<br/>Senkt Ausbreitung leicht (R0 -0.01)",
+            "descHarm": "",
+            "activationDuration": 14,
+            "activationAlreadyProgressed": 0,
+            "activationNature": "linear",
+            "cost": 0,
+            "alreadyPaid": 0,
+            "status": 1,
+            "type": "good",
+            "rEffect": -0.01,
+            "acceptanceEffect": 0.02,
+            "activationTrigger": {
+              "nature":"threshold",
+              "parameter":"allInfected",
+              "type":"above",
+              "value":50000,
+              "probability":0.1
+            },
+            "deactivationTrigger": {
+              "nature":"threshold",
+              "parameter":"allInfected",
+              "type":"below",
+              "value":10000,
+              "probability":1.0
+            },
+            "successors": ["C010"]
+        }
+    ],
+    [
+        "C010",
+        {
+            "name": "Streamingseiten kostenlos",
+            "desc": "Streamingseiten bieten besonders betroffenen Gebieten eine kostenlose Nutzung an.",
+            "descImprove": "Erhöht Akzeptanz (2%)<br/>Senkt Ausbreitung (R0 -0.01)",
+            "descHarm": "",
+            "activationDuration": 1,
+            "activationAlreadyProgressed": 0,
+            "activationNature": "instant",
+            "cost": 0,
+            "alreadyPaid": 0,
+            "status": 1,
+            "type": "good",
+            "rEffect": -0.01,
+            "acceptanceEffect": 0.02,
+            "activationTrigger": {
+              "nature":"threshold",
+              "parameter":"allInfected",
+              "type":"above",
+              "value":100000,
+              "probability":0.1
+            },
+            "deactivationTrigger": {
+              "nature":"threshold",
+              "parameter":"allInfected",
+              "type":"below",
+              "value":10000,
+              "probability":0.1
+            },
+            "successors": []
+        }
+    ],
+    [
+        "C02",
+        {
+            "name": "Free2Play Events",
+            "desc": "Free2Play Spiele führen Corona-Events ein.",
+            "descImprove": "Erhöht Akzeptanz (1%)<br/>Senkt Ausbreitung leicht (R0 -0.01)",
+            "descHarm": "",
+            "activationDuration": 14,
+            "activationAlreadyProgressed": 0,
+            "activationNature": "linear",
+            "cost": 0,
+            "alreadyPaid": 0,
+            "status": 1,
+            "type": "good",
+            "rEffect": -0.01,
+            "acceptanceEffect": 0.01,
+            "activationTrigger": {
+              "nature":"threshold",
+              "parameter":"allInfected",
+              "type":"above",
+              "value":100000,
+              "probability":0.05
+            },
+            "deactivationTrigger": {
+              "nature":"threshold",
+              "parameter":"allInfected",
+              "type":"below",
+              "value":10000,
+              "probability":1.0
+            },
+            "successors": ["C010"]
+        }
+    ],
+  ]
 ]

@@ -13,7 +13,7 @@
             "alreadyPaid": 0,
             "acceptanceEffect": 0.01,
             "rEffect": -0.01,
-            "status": 4,
+            "status": 2,
             "successors": [
             ]
         }
@@ -218,42 +218,5 @@
               "K0300"
           ]
       }
-    ],
-    [
-        "a12",
-        {
-            "name": "Geschäfte schließen",
-            "status": 1,
-            "successors": []
-        }
-    ],
-    [
-        "a13",
-        {
-            "name": "Krankenhäuser freimachen",
-            "status": 1,
-            "successors": [
-                "a10"
-            ]
-        }
-    ],
-    [
-        "a14",
-        {
-            "name": "Tests einführen",
-            "status": 2,
-            "successors": [
-                "a12",
-                "a13"
-            ]
-        }
-    ],
-    [
-        "a10",
-        {
-            "name": "Informationsveranstaltung",
-            "status": 1,
-            "successors": []
-        }
     ]
 ]
